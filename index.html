@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Estudiantil - Universidad de Lima</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  
+  <link rel="stylesheet" href="diseño.css">
+</head>
+<body>
+
+  
+  <header class="navbar">
+    <a class="logo" id="navLogo" onclick="showView('landingView')">
+      <img src="img/logo_ulima.png" alt="ULima Logo" class="nav-logo-img">
+      <span>ULima Portal</span>
+    </a>
+
+    <div class="nav-right">
+      <span class="role-badge" id="userRoleBadge">VISITANTE</span>
+
+      
+      <div id="navAuthButtons">
+        <button class="btn btn-outline" onclick="showView('loginView')">Iniciar Sesión</button>
+        <button class="btn btn-primary" onclick="showView('registerView')">Registrarse</button>
+      </div>
+
+      
+      <div id="navUserMenu" style="display: none;">
+        <button class="btn btn-outline" onclick="showView('profileView')">
+          <i class="fa-regular fa-user"></i> Mi Perfil
+        </button>
+        <button class="btn btn-primary" onclick="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+        </button>
+      </div>
+    </div>
+  </header>
+
+  
+  <main class="container">
+
+    
+    <section id="landingView" class="view-section active">
+      <div class="hero">
+        <h1>Bienvenido al Portal Estudiantil ULima</h1>
+        <p>Espacio exclusivo para la comunidad universitaria. Encuentra objetos perdidos, intercambia recursos y conecta de manera rápida y segura.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="showView('registerView')">
+            <i class="fa-solid fa-user-plus"></i> Crear una Cuenta
+          </button>
+          <button class="btn btn-outline btn-lg" onclick="showView('loginView')">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+          </button>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3c-2.72 0-5.38.38-7.94 1.1a1.3 1.3 0 0 0-.94 1.24v3.05c0 5.05 3.02 9.66 8.03 11.79a1.3 1.3 0 0 0 1.7 0c5.01-2.13 8.03-6.74 8.03-11.79V5.34a1.3 1.3 0 0 0-.94-1.24A24.9 24.9 0 0 0 12 3Z"/>
+              <path d="m8.75 12.35 2.15 2.15 4.3-4.7"/>
+            </svg>
+          </div>
+          <h3>Verificación Oficial</h3>
+          <p>Acceso restringido a alumnos con correo institucional <strong>@aloe.ulima.edu.pe</strong>.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.25"/>
+              <path d="m20.25 20.25-4.85-4.85"/>
+            </svg>
+          </div>
+          <h3>Objetos Perdidos</h3>
+          <p>Reporta y recupera objetos extraviados dentro del campus universitario en tiempo real.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 10.5c0 6.5-7 10.5-7 10.5s-7-4-7-10.5a7 7 0 0 1 14 0Z"/>
+              <circle cx="12" cy="10.5" r="2.4"/>
+            </svg>
+          </div>
+          <h3>Puntos de Encuentro</h3>
+          <p>Coagiliza entregas seguras en áreas reconocidas como la Biblioteca, Plaza Central o Pabellón A.</p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section id="loginView" class="view-section">
+      <div class="card card-form">
+        <h2 class="card-center">Iniciar Sesión</h2>
+        <p class="subtitle card-center">Ingresa tu correo institucional para continuar</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Correo Institucional</label>
+            <input type="email" id="loginEmail" placeholder="usuario@aloe.ulima.edu.pe" required>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            Ingresar al Portal
+          </button>
+        </form>
+
+        <div class="switch-auth-link">
+          ¿Aún no tienes cuenta? <a href="#" onclick="showView('registerView'); return false;">Regístrate aquí</a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="registerView" class="view-section">
+      <div class="card card-form">
+        <h2 class="card-center">Crear Cuenta</h2>
+        <p class="subtitle card-center">Regístrate con tus datos universitarios</p>
+
+        <form id="registerForm" onsubmit="handleRegister(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regNombres">Nombres</label>
+              <input type="text" id="regNombres" placeholder="Ej. Rosa María" required>
+            </div>
+            <div class="form-group">
+              <label for="regApellidos">Apellidos</label>
+              <input type="text" id="regApellidos" placeholder="Ej. Quispe Ríos" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regEmail">Correo Institucional</label>
+            <input type="email" id="regEmail" placeholder="codigo@aloe.ulima.edu.pe" oninput="validateEmailInput()" required>
+            <span class="error-msg" id="regEmailError"></span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regCarrera">Carrera</label>
+              <select id="regCarrera" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Administración">Administración</option>
+                <option value="Arquitectura">Arquitectura</option>
+                <option value="Comunicación">Comunicación</option>
+                <option value="Derecho">Derecho</option>
+                <option value="Economía">Economía</option>
+                <option value="Ingeniería Civil">Ingeniería Civil</option>
+                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Psicología">Psicología</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="regCiclo">Ciclo</label>
+              <select id="regCiclo" required>
+                <option value="" disabled selected>Selecciona ciclo</option>
+                <option value="Primer">Primer</option>
+                <option value="Segundo">Segundo</option>
+                <option value="Tercer">Tercer</option>
+                <option value="Cuarto">Cuarto</option>
+                <option value="Quinto">Quinto</option>
+                <option value="Sexto">Sexto</option>
+                <option value="Séptimo">Séptimo</option>
+                <option value="Octavo">Octavo</option>
+                <option value="Noveno">Noveno</option>
+                <option value="Décimo">Décimo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword">Contraseña</label>
+            <input type="password" id="regPassword" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            Registrar Cuenta
+          </button>
+        </form>
+
+        <div class="switch-auth-link">
+          ¿Ya tienes cuenta? <a href="#" onclick="showView('loginView'); return false;">Inicia sesión</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VISTA PERFIL -->
+    <section id="profileView" class="view-section">
+      <div class="card card-form">
+        <div class="profile-header">
+          <div class="avatar" id="profileAvatar">RM</div>
+          <div>
+            <h2 id="profileName">Rosa María Quispe Ríos</h2>
+            <div class="profile-badge-row">
+              <span class="badge-success"><i class="fa-solid fa-circle-check"></i> Verificado</span>
+              <span id="profileDetail">Administración | Ciclo Cuarto</span>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3>Configuración de la Cuenta</h3>
+
+        <form id="profileForm" onsubmit="handleUpdateProfile(event)">
+          <div class="form-group">
+            <label for="profilePhone">Teléfono de Contacto</label>
+            <input type="tel" id="profilePhone" placeholder="Ej. 987 654 321">
+          </div>
+
+          <div class="form-group">
+            <label for="profileLocation">Punto de Encuentro Preferido</label>
+            <select id="profileLocation">
+              <option value="Biblioteca">Biblioteca</option>
+              <option value="Pabellón A">Pabellón A</option>
+              <option value="Pabellón B">Pabellón B</option>
+              <option value="Pabellón G">Pabellón G</option>
+              <option value="Plaza Central">Plaza Central</option>
+              <option value="Gimnasio">Gimnasio</option>
+              <option value="Zona de Comedores">Zona de Comedores</option>
+            </select>
+          </div>
+
+          <div class="form-actions-row">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+            </button>
+            <button type="button" class="btn btn-outline text-danger" onclick="logout()">
+              <i class="fa-solid fa-power-off"></i> Cerrar Sesión
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Universidad de Lima - Portal Estudiantil. Todos los derechos reservados.</p>
+  </footer>
+
+  
+  <script src="javascript.js"></script>
+</body>
+</html>

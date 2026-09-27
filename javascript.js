@@ -1,0 +1,132 @@
+// ESTADO GLOBAL SIMULADO DE SESIÓN
+const state = {
+  currentUser: null // null indica VISITANTE; al autenticarse contendrá la info del usuario
+};
+
+
+function showView(viewId) {
+  const views = document.querySelectorAll('.view-section');
+  views.forEach(v => v.classList.remove('active'));
+
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.classList.add('active');
+  }
+}
+
+// Validar correo institucional (@aloe.ulima.edu.pe)
+function validateEmailInput() {
+  const emailInput = document.getElementById('regEmail');
+  const errorMsg = document.getElementById('regEmailError');
+  const emailValue = emailInput.value.trim();
+
+  if (!emailValue.endsWith('@aloe.ulima.edu.pe')) {
+    emailInput.classList.add('is-invalid');
+    errorMsg.textContent = 'El correo debe terminar en @aloe.ulima.edu.pe';
+    return false;
+  } else {
+    emailInput.classList.remove('is-invalid');
+    errorMsg.textContent = '';
+    return true;
+  }
+}
+
+
+function handleRegister(e) {
+  e.preventDefault();
+
+  if (!validateEmailInput()) {
+    alert('Por favor, ingresa un correo institucional válido.');
+    return;
+  }
+
+  const nombres = document.getElementById('regNombres').value;
+  const apellidos = document.getElementById('regApellidos').value;
+  const correo = document.getElementById('regEmail').value;
+  const carrera = document.getElementById('regCarrera').value;
+  const ciclo = document.getElementById('regCiclo').value;
+
+  // Registrar usuario en el estado
+  state.currentUser = {
+    id: "USR-" + Date.now(),
+    nombres,
+    apellidos,
+    correo,
+    carrera,
+    ciclo,
+    telefono: "Sin registrar",
+    puntoEncuentroPreferido: "Biblioteca",
+    rol: "USUARIO"
+  };
+
+  updateUI();
+  alert('¡Cuenta creada con éxito!');
+  showView('profileView');
+}
+
+// Manejo del Login
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+
+  if (!email.endsWith('@aloe.ulima.edu.pe')) {
+    alert('Acceso no permitido: Ingresa con tu correo institucional.');
+    return;
+  }
+
+ 
+  state.currentUser = {
+    id: "USR-001",
+    nombres: "Rosa María",
+    apellidos: "Quispe Ríos",
+    correo: email,
+    carrera: "Administración",
+    ciclo: "Cuarto",
+    telefono: "987 654 321",
+    puntoEncuentroPreferido: "Biblioteca",
+    rol: "USUARIO"
+  };
+
+  updateUI();
+  showView('profileView');
+}
+
+
+function logout() {
+  state.currentUser = null;
+  updateUI();
+  showView('landingView');
+}
+
+
+function updateUI() {
+  const roleBadge = document.getElementById('userRoleBadge');
+  const authBtns = document.getElementById('navAuthButtons');
+  const userMenu = document.getElementById('navUserMenu');
+
+  if (state.currentUser) {
+    roleBadge.textContent = state.currentUser.rol;
+    authBtns.style.display = 'none';
+    userMenu.style.display = 'flex';
+
+    
+    document.getElementById('profileName').textContent = `\({state.currentUser.nombres}\){state.currentUser.apellidos}`;
+    document.getElementById('profileDetail').textContent = `\({state.currentUser.carrera} | Ciclo\){state.currentUser.ciclo}`;
+    document.getElementById('profilePhone').value = state.currentUser.telefono;
+    document.getElementById('profileLocation').value = state.currentUser.puntoEncuentroPreferido;
+  } else {
+    roleBadge.textContent = 'VISITANTE';
+    authBtns.style.display = 'flex';
+    userMenu.style.display = 'none';
+  }
+}
+
+
+function handleUpdateProfile(e) {
+  e.preventDefault();
+  if (state.currentUser) {
+    state.currentUser.telefono = document.getElementById('profilePhone').value;
+    state.currentUser.puntoEncuentroPreferido = document.getElementById('profileLocation').value;
+    alert('Los cambios de tu cuenta han sido guardados.');
+  }
+}
