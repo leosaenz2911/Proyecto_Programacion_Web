@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Estudiantil - Universidad de Lima</title>
 
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+    rel="stylesheet">
 
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  
+
   <link rel="stylesheet" href="diseño.css">
 </head>
+
 <body>
 
-  
+
   <header class="navbar">
     <a class="logo" id="navLogo" onclick="showView('landingView')">
       <img src="img/logo_ulima.png" alt="ULima Logo" class="nav-logo-img">
@@ -28,13 +32,13 @@
     <div class="nav-right">
       <span class="role-badge" id="userRoleBadge">VISITANTE</span>
 
-      
+
       <div id="navAuthButtons">
         <button class="btn btn-outline" onclick="showView('loginView')">Iniciar Sesión</button>
         <button class="btn btn-primary" onclick="showView('registerView')">Registrarse</button>
       </div>
 
-      
+
       <div id="navUserMenu" style="display: none;">
         <button class="btn btn-outline" onclick="showView('profileView')">
           <i class="fa-regular fa-user"></i> Mi Perfil
@@ -46,14 +50,15 @@
     </div>
   </header>
 
-  
+
   <main class="container">
 
-    
+
     <section id="landingView" class="view-section active">
       <div class="hero">
         <h1>Bienvenido al Portal Estudiantil ULima</h1>
-        <p>Espacio exclusivo para la comunidad universitaria. Encuentra objetos perdidos, intercambia recursos y conecta de manera rápida y segura.</p>
+        <p>Espacio exclusivo para la comunidad universitaria. Encuentra objetos perdidos, intercambia recursos y conecta
+          de manera rápida y segura.</p>
         <div class="hero-actions">
           <button class="btn btn-primary btn-lg" onclick="showView('registerView')">
             <i class="fa-solid fa-user-plus"></i> Crear una Cuenta
@@ -67,9 +72,11 @@
       <div class="features-grid">
         <div class="feature-item">
           <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 3c-2.72 0-5.38.38-7.94 1.1a1.3 1.3 0 0 0-.94 1.24v3.05c0 5.05 3.02 9.66 8.03 11.79a1.3 1.3 0 0 0 1.7 0c5.01-2.13 8.03-6.74 8.03-11.79V5.34a1.3 1.3 0 0 0-.94-1.24A24.9 24.9 0 0 0 12 3Z"/>
-              <path d="m8.75 12.35 2.15 2.15 4.3-4.7"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M12 3c-2.72 0-5.38.38-7.94 1.1a1.3 1.3 0 0 0-.94 1.24v3.05c0 5.05 3.02 9.66 8.03 11.79a1.3 1.3 0 0 0 1.7 0c5.01-2.13 8.03-6.74 8.03-11.79V5.34a1.3 1.3 0 0 0-.94-1.24A24.9 24.9 0 0 0 12 3Z" />
+              <path d="m8.75 12.35 2.15 2.15 4.3-4.7" />
             </svg>
           </div>
           <h3>Verificación Oficial</h3>
@@ -77,9 +84,10 @@
         </div>
         <div class="feature-item">
           <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="10.5" cy="10.5" r="6.25"/>
-              <path d="m20.25 20.25-4.85-4.85"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.25" />
+              <path d="m20.25 20.25-4.85-4.85" />
             </svg>
           </div>
           <h3>Objetos Perdidos</h3>
@@ -87,9 +95,10 @@
         </div>
         <div class="feature-item">
           <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M19 10.5c0 6.5-7 10.5-7 10.5s-7-4-7-10.5a7 7 0 0 1 14 0Z"/>
-              <circle cx="12" cy="10.5" r="2.4"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 10.5c0 6.5-7 10.5-7 10.5s-7-4-7-10.5a7 7 0 0 1 14 0Z" />
+              <circle cx="12" cy="10.5" r="2.4" />
             </svg>
           </div>
           <h3>Puntos de Encuentro</h3>
@@ -98,7 +107,7 @@
       </div>
     </section>
 
-   
+
     <section id="loginView" class="view-section">
       <div class="card card-form">
         <h2 class="card-center">Iniciar Sesión</h2>
@@ -126,7 +135,7 @@
       </div>
     </section>
 
-    
+
     <section id="registerView" class="view-section">
       <div class="card card-form">
         <h2 class="card-center">Crear Cuenta</h2>
@@ -146,7 +155,8 @@
 
           <div class="form-group">
             <label for="regEmail">Correo Institucional</label>
-            <input type="email" id="regEmail" placeholder="codigo@aloe.ulima.edu.pe" oninput="validateEmailInput()" required>
+            <input type="email" id="regEmail" placeholder="codigo@aloe.ulima.edu.pe" oninput="validateEmailInput()"
+              required>
             <span class="error-msg" id="regEmailError"></span>
           </div>
 
@@ -250,13 +260,184 @@
       </div>
     </section>
 
+    <!-- PARTE 2 : PUBLICACIONES : SEBASTIAM SOLORZANO-->
+    <!-- Apartado 2.1 : Tabla Mis publicaciones -->
+    <section id="misPublicacionesView" class="view-section">
+      <div class="page-header">
+        <div>
+          <h2>Mis publicaciones</h2>
+          <p class="Subtitulo" id="misPubResumen"></p>
+        </div>
+        <button class="Boton-PrimarioBiblioteca" onclick="showView('nuevoAvisoView')">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+
+      <div class="filter-bar">
+        <div class="chip-group" id="misPubFiltros">
+          <button class="chip chip-active" data-filtro="todos" onclick="filtrarMisPublicaciones('todos')">Todos ·
+            6</button>
+          <button class="chip" data-filtro="publicado" onclick="filtrarMisPublicaciones('publicado')">Publicados ·
+            3</button>
+          <button class="chip" data-filtro="pausado" onclick="filtrarMisPublicaciones('pausado')">Pausados · 1</button>
+          <button class="chip" data-filtro="borrador" onclick="filtrarMisPublicaciones('borrador')">Borradores ·
+            1</button>
+          <button class="chip" data-filtro="vendido" onclick="filtrarMisPublicaciones('vendido')">Vendidos · 1</button>
+        </div>
+        <div class="search-inline">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="misPubBuscar" placeholder="Buscar en mis avisos…"
+            oninput="buscarMisPublicaciones(this.value)">
+        </div>
+      </div>
+      <!-- Subtabla de variables  -->
+      <table class="tabla-avisos">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Aviso</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Ofertas</th>
+            <th>Publicado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- Contenido de la tabla -->
+        <tbody id="misPubTbody">
+          <!--Primeria fila de la tabla -->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Cálculo de una variable - Stewart, 8.a ed.</span>
+              <span class="aviso-meta">Libros de texto . Cálculo I . Muy buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 95.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas-datos-incluidos">4 ofertas</td>
+            <td class="Celda-Fecha">18/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Segunda fila de la tabla-->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Calculadora científica ClassWiz fx-991</span>
+              <span class="aviso-meta">Calculadoras · Física II · Como nuevo</span>
+            </td>
+            <td class="celda-precio">S/ 120.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas-datos-incluidos">3 ofertas</td>
+            <td class="Celda-Fecha">22/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Tercera fila de la tabla-->
+          <tr data-estado="pausado" class="fila-resaltada">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso-alternativo">Juego de escuadras y escalímetro Faber</span>
+              <span class="aviso-meta">Instrumentos de dibujo · Dibujo Técnico · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 38.00</td>
+            <td><span class="badge publicado-yellow">Pausado</span></td>
+            <td class="celda-ofertas-datos-incluidos">2 ofertas</td>
+            <td class="Celda-Fecha">10/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Cuarta fila de la tabla-->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Apuntes de Contabilidad General — 2 ciclos</span>
+              <span class="aviso-meta">Apuntes y guías · Contabilidad General · Con marcas de uso</span>
+            </td>
+            <td class="celda-precio">S/ 25.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas">Sin ofertas</td>
+            <td class="Celda-Fecha">29/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Quinta fila de la tabla-->
+          <tr data-estado="borrador">
+            <td>
+              <div class="foto-vacia"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Mandil de laboratorio talla M</span>
+              <span class="aviso-meta">Uniformes y mandiles · Química General · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 45.00</td>
+            <td><span class="badge publicado-borrador">Borrador</span></td>
+            <td class="celda-ofertas">-</td>
+            <td class="Celda-Fecha">Sin publicar</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Sexta fila de la tabla-->
+          <tr data-estado="vendido">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Física para ciencias e ingeniería — Serway, tomo I</span>
+              <span class="aviso-meta">Libros de texto · Física II · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 110.00</td>
+            <td><span class="badge publicado-verde">Vendido</span></td>
+            <td class="celda-ofertas">Cerrado con 1</td>
+            <td class="Celda-Fecha">05/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="estado-vacio" id="misPubVacio" style="display:none;">
+        <div class="estado-vacio-icono"><i class="fa-regular fa-folder-open"></i></div>
+        <h3>Ningún aviso coincide</h3>
+        <p class="subtitle">Prueba con otro filtro o borra la búsqueda para ver todos tus avisos.</p>
+        <button class="btn btn-primary" onclick="filtrarMisPublicaciones('todos')">Ver todos mis avisos</button>
+      </div>
+
+      <!-- Barra de abajo de la tabla-->
+      <div class="paginacion">
+        <span id="misPubConteo">Mostrando 6 de 6 avisos</span>
+        <div class="Botones-paginacion">
+          <button class="bton-pagina"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="bton-central-pagina">1</button>
+          <button class="bton-pagina"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+    
   </main>
 
   <footer>
-    <p>&copy; 2026 Universidad de Lima - Portal Estudiantil. Todos los derechos reservados.</p>
+    <p> Universidad de Lima · Campus Monterrico · Av. Javier Prado Este 4600</p>
+    <div class="footer">
+      <a href="#">Normas del tablón</a>
+      <a href="#">Mesa de ayuda</a>
+      <a href="#">tablon@ulima.edu.pe</a>
+    </div>
   </footer>
 
-  
+
   <script src="javascript.js"></script>
+
+
+
 </body>
+
 </html>
