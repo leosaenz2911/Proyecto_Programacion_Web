@@ -1,241 +1,525 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tablón ULima - Mercado de libros y materiales usados</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css_historia1.css">
 </head>
+
 <body>
 
-<header class="topbar">
-  <div class="topbar-main">
-    <a class="brand" onclick="goHome()"><img class="brand-logo" src="img/logo_ulima.png" alt=""><span>Tablón ULima</span></a>
-    <nav class="nav-links" id="navPublic">
-      <a onclick="showView('catalogView')">Catálogo</a><a onclick="showView('landingView')">Cómo funciona</a><a>Normas del tablón</a><a>Ayuda</a>
-    </nav>
-    <form class="nav-search" id="navSearch" style="display:none" onsubmit="event.preventDefault();showView('catalogView')">
-      <input type="search" placeholder="Buscar libros, calculadoras, apuntes…">
-    </form>
-    <div class="nav-right">
-      <span class="role-badge role-visitante" id="userRoleBadge">VISITANTE</span>
-      <div id="navAuthButtons">
-        <a class="btn btn-ghost" onclick="showView('loginView')">Ingresar</a>
-        <button class="btn btn-primary" onclick="showView('registerView')">Crear cuenta</button>
-      </div>
-      <div id="navUserMenu" style="display:none">
-        <a class="user-chip" onclick="showView('profileView')"><span class="avatar-sm" id="navAvatar">RQ</span><span id="navUserName"></span></a>
-        <button class="btn btn-secondary" onclick="logout()">Salir</button>
-      </div>
-    </div>
-  </div>
-  <nav class="tabs" id="navTabs" style="display:none"></nav>
-</header>
-
-<div id="toastArea" aria-live="polite"></div>
-
-<main>
-
-  <!-- 1.1 LANDING -->
-  <section id="landingView" class="view-section active">
-    <div class="hero"><div class="wrap">
-      <h1>Lo que a un compañero le sobra, a ti te sirve este ciclo</h1>
-      <p class="sub">Libros, calculadoras e instrumentos de segunda mano publicados por estudiantes de la Universidad de Lima. Oferta, acuerda y recoge dentro del campus.</p>
-      <form class="hero-search" onsubmit="event.preventDefault();showView('catalogView')">
-        <input type="search" placeholder="¿Qué estás buscando? Ej. Stewart Cálculo"><button class="btn btn-primary">Buscar</button>
+  <header class="topbar">
+    <div class="topbar-main">
+      <a class="brand" onclick="goHome()"><img class="brand-logo" src="img/logo_ulima.png" alt=""><span>Tablón
+          ULima</span></a>
+      <nav class="nav-links" id="navPublic">
+        <a onclick="showView('catalogView')">Catálogo</a><a onclick="showView('landingView')">Cómo funciona</a><a>Normas
+          del tablón</a><a>Ayuda</a>
+      </nav>
+      <form class="nav-search" id="navSearch" style="display:none"
+        onsubmit="event.preventDefault();showView('catalogView')">
+        <input type="search" placeholder="Buscar libros, calculadoras, apuntes…">
       </form>
-      <div class="stats">
-        <div><b>1,248</b><span>avisos activos</span></div><div><b>S/ 62</b><span>precio mediano</span></div><div><b>4.8</b><span>reputación media</span></div>
-      </div>
-    </div></div>
-    <div class="wrap">
-      <p class="eyebrow" style="margin-top:28px">Categorías destacadas</p>
-      <div class="cats" style="margin-top:12px">
-        <div class="cat"><i class="fa-solid fa-book"></i>Libros de texto</div>
-        <div class="cat"><i class="fa-solid fa-calculator"></i>Calculadoras</div>
-        <div class="cat"><i class="fa-solid fa-ruler-combined"></i>Instrumentos de dibujo</div>
-        <div class="cat"><i class="fa-solid fa-file-lines"></i>Apuntes y guías</div>
-        <div class="cat"><i class="fa-solid fa-laptop"></i>Laptops y accesorios</div>
-        <div class="cat"><i class="fa-solid fa-shirt"></i>Uniformes y mandiles</div>
-        <div class="cat"><i class="fa-solid fa-flask"></i>Material de laboratorio</div>
-      </div>
-      <div class="section-head"><h2>Avisos recientes</h2><a onclick="showView('catalogView')">Ver todo el catálogo →</a></div>
-      <div class="recent">
-        <div class="item"><b>Cálculo de una variable — Stewart</b><em>S/ 95.00</em>Muy buen estado · Cálculo I</div>
-        <div class="item"><b>Calculadora ClassWiz fx-991</b><em>S/ 120.00</em>Como nuevo · Física II</div>
-        <div class="item"><b>Escuadras y escalímetro Faber</b><em>S/ 38.00</em>Buen estado · Dibujo Técnico</div>
-        <div class="item"><b>Apuntes de Contabilidad General</b><em>S/ 25.00</em>Con marcas de uso</div>
-      </div>
-      <div class="steps3">
-        <div class="step3"><i>1</i><div><b>Publica tu aviso</b><span>Sube fotografías, indica el estado del producto y tu precio pedido.</span></div></div>
-        <div class="step3"><i>2</i><div><b>Recibe y negocia ofertas</b><span>Acepta, rechaza o contraoferta desde el hilo de negociación.</span></div></div>
-        <div class="step3"><i>3</i><div><b>Coordinen la entrega</b><span>Elijan punto y horario en el campus y confirmen la entrega.</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 1.2 INICIAR SESIÓN -->
-  <section id="loginView" class="view-section">
-    <div class="auth-split">
-      <div class="auth-photo"><div class="quote">«Vendí mis libros de Cálculo en tres días y compré los de Física del ciclo siguiente.»<small>Rosa María Quispe Ríos · Administración</small></div></div>
-      <div class="auth-form"><div class="box">
-        <h1>Iniciar sesión</h1>
-        <p class="sub">Usa tu correo institucional @aloe.ulima.edu.pe para ofertar, publicar y coordinar entregas.</p>
-        <div class="alert alert-error" id="loginError" style="display:none"></div>
-        <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
-          <div class="field"><label for="loginEmail">Correo institucional</label>
-            <input type="email" id="loginEmail" placeholder="20201234@aloe.ulima.edu.pe"><span class="error-msg" id="loginEmailError"></span></div>
-          <div class="field"><label for="loginPassword">Contraseña</label>
-            <div class="pass-wrap"><input type="password" id="loginPassword" placeholder="••••••••••"><button type="button" class="pass-toggle" onclick="togglePassword('loginPassword',this)">Mostrar</button></div>
-            <span class="error-msg" id="loginPasswordError"></span></div>
-          <div class="form-foot"><span></span><a onclick="startRecovery()">¿Olvidaste tu contraseña?</a></div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
-        </form>
-        <p class="switch">¿No tienes cuenta? <a onclick="showView('registerView')"><b>Crear cuenta</b></a></p>
-        <p class="demo">Demo: <code>20201234@aloe.ulima.edu.pe</code> / <code>Rosa1234</code> · admin: <code>20150001@aloe.ulima.edu.pe</code> / <code>Admin1234</code></p>
-      </div></div>
-    </div>
-  </section>
-
-  <!-- 1.3 REGISTRO -->
-  <section id="registerView" class="view-section"><div class="wrap center-page">
-    <div class="card card-narrow">
-      <h1>Crear cuenta</h1>
-      <p class="sub">Solo para estudiantes con correo institucional. La cuenta se activa al confirmar el correo.</p>
-      <div class="alert alert-error" id="regAlert" style="display:none"></div>
-      <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
-        <div class="row2">
-          <div class="field"><label for="regNombres">Nombres</label><input type="text" id="regNombres" placeholder="Ej. Rosa María"><span class="error-msg" id="regNombresError"></span></div>
-          <div class="field"><label for="regApellidos">Apellidos</label><input type="text" id="regApellidos" placeholder="Ej. Quispe Ríos"><span class="error-msg" id="regApellidosError"></span></div>
+      <div class="nav-right">
+        <span class="role-badge role-visitante" id="userRoleBadge">VISITANTE</span>
+        <div id="navAuthButtons">
+          <a class="btn btn-ghost" onclick="showView('loginView')">Ingresar</a>
+          <button class="btn btn-primary" onclick="showView('registerView')">Crear cuenta</button>
         </div>
-        <div class="field"><label for="regEmail">Correo institucional</label><input type="email" id="regEmail" placeholder="codigo@aloe.ulima.edu.pe"><span class="error-msg" id="regEmailError"></span></div>
-        <div class="row2">
-          <div class="field"><label for="regPassword">Contraseña</label><input type="password" id="regPassword" placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, una mayúscula y un número.</span><span class="error-msg" id="regPasswordError"></span></div>
-          <div class="field"><label for="regConfirm">Confirmar contraseña</label><input type="password" id="regConfirm" placeholder="••••••••••"><span class="error-msg" id="regConfirmError"></span></div>
+        <div id="navUserMenu" style="display:none">
+          <a class="user-chip" onclick="showView('profileView')"><span class="avatar-sm" id="navAvatar">RQ</span><span
+              id="navUserName"></span></a>
+          <button class="btn btn-secondary" onclick="logout()">Salir</button>
         </div>
-        <div class="row2">
-          <div class="field"><label for="regCarrera">Carrera</label>
-            <select id="regCarrera"><option value="" selected>Selecciona una opción</option>
-              <option>Administración</option><option>Arquitectura</option><option>Comunicación</option><option>Contabilidad</option><option>Derecho</option><option>Economía</option>
-              <option>Ingeniería Civil</option><option>Ingeniería Industrial</option><option>Ingeniería de Sistemas</option><option>Marketing</option><option>Psicología</option></select>
-            <span class="error-msg" id="regCarreraError"></span></div>
-          <div class="field"><label for="regCiclo">Ciclo</label>
-            <select id="regCiclo"><option value="" selected>Selecciona ciclo</option>
-              <option>Primer</option><option>Segundo</option><option>Tercer</option><option>Cuarto</option><option>Quinto</option><option>Sexto</option><option>Séptimo</option><option>Octavo</option><option>Noveno</option><option>Décimo</option></select>
-            <span class="error-msg" id="regCicloError"></span></div>
-        </div>
-        <div class="field"><label class="check-label"><input type="checkbox" id="regTerms">Acepto las normas de convivencia del tablón y el registro de mis acuerdos.</label><span class="error-msg" id="regTermsError"></span></div>
-        <div class="form-actions"><a class="btn btn-ghost" onclick="showView('loginView')">Cancelar</a><button type="submit" class="btn btn-primary">Crear cuenta</button></div>
-      </form>
-    </div>
-  </div></section>
-
-  <!-- 1.4 RECUPERAR CONTRASEÑA -->
-  <section id="recoverView" class="view-section"><div class="wrap">
-    <div class="steps-bar">
-      <div class="step-item" id="stepBar1"><span></span>Paso 1 · Correo</div>
-      <div class="step-item" id="stepBar2"><span></span>Paso 2 · Enlace</div>
-      <div class="step-item" id="stepBar3"><span></span>Paso 3 · Nueva contraseña</div>
-    </div>
-    <div class="card card-mid" style="margin-bottom:48px">
-      <form id="recoverStep1" class="recover-step" onsubmit="handleRecoverEmail(event)" novalidate>
-        <h1>Ingresa tu correo institucional</h1>
-        <p class="sub">Te enviaremos un enlace para crear una nueva contraseña. El enlace vence en 30 minutos.</p>
-        <div class="field"><label for="recEmail">Correo institucional</label><input type="email" id="recEmail" placeholder="20201234@aloe.ulima.edu.pe"><span class="error-msg" id="recEmailError"></span></div>
-        <div class="form-foot"><a onclick="showView('loginView')"><b>Volver al inicio de sesión</b></a><button type="submit" class="btn btn-primary">Enviar enlace</button></div>
-      </form>
-      <div id="recoverStep2" class="recover-step" style="text-align:center">
-        <div class="big-icon"><i class="fa-regular fa-envelope"></i></div>
-        <h1>Revisa tu correo</h1>
-        <p class="sub">Enviamos el enlace a <b id="recSentTo"></b>. Si no lo ves, revisa la carpeta de correo no deseado.</p>
-        <button class="btn btn-primary btn-block" onclick="openRecoveryLink()">Simular clic en el enlace del correo</button>
-        <p class="demo">Demo: el proyecto no envía correos reales.</p>
-        <button class="btn btn-secondary btn-block" onclick="goRecoverStep(1)">Usar otro correo</button>
       </div>
-      <form id="recoverStep3" class="recover-step" onsubmit="handleNewPassword(event)" novalidate>
-        <h1>Crea tu nueva contraseña</h1>
-        <div class="field" style="margin-top:16px"><label for="newPass">Nueva contraseña</label><input type="password" id="newPass" placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, con una mayúscula y un número.</span><span class="error-msg" id="newPassError"></span></div>
-        <div class="field"><label for="newPassConfirm">Confirmar contraseña</label><input type="password" id="newPassConfirm" placeholder="••••••••••"><span class="error-msg" id="newPassConfirmError"></span></div>
-        <button type="submit" class="btn btn-primary btn-block">Guardar contraseña</button>
-      </form>
     </div>
-  </div></section>
+    <nav class="tabs" id="navTabs" style="display:none"></nav>
+  </header>
 
-  <!-- 1.5 MI CUENTA -->
-  <section id="profileView" class="view-section"><div class="wrap">
-    <div class="page-head"><h1>Mi cuenta</h1><p class="sub" id="profileDetail"></p></div>
-    <div class="account-grid">
-      <div class="stack">
-        <form id="profileForm" class="stack" onsubmit="handleUpdateProfile(event)" novalidate>
-          <div class="card"><h2>Datos personales</h2>
+  <div id="toastArea" aria-live="polite"></div>
+
+  <main>
+
+    <!-- 1.1 LANDING -->
+    <section id="landingView" class="view-section active">
+      <div class="hero">
+        <div class="wrap">
+          <h1>Lo que a un compañero le sobra, a ti te sirve este ciclo</h1>
+          <p class="sub">Libros, calculadoras e instrumentos de segunda mano publicados por estudiantes de la
+            Universidad de Lima. Oferta, acuerda y recoge dentro del campus.</p>
+          <form class="hero-search" onsubmit="event.preventDefault();showView('catalogView')">
+            <input type="search" placeholder="¿Qué estás buscando? Ej. Stewart Cálculo"><button
+              class="btn btn-primary">Buscar</button>
+          </form>
+          <div class="stats">
+            <div><b>1,248</b><span>avisos activos</span></div>
+            <div><b>S/ 62</b><span>precio mediano</span></div>
+            <div><b>4.8</b><span>reputación media</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="eyebrow" style="margin-top:28px">Categorías destacadas</p>
+        <div class="cats" style="margin-top:12px">
+          <div class="cat"><i class="fa-solid fa-book"></i>Libros de texto</div>
+          <div class="cat"><i class="fa-solid fa-calculator"></i>Calculadoras</div>
+          <div class="cat"><i class="fa-solid fa-ruler-combined"></i>Instrumentos de dibujo</div>
+          <div class="cat"><i class="fa-solid fa-file-lines"></i>Apuntes y guías</div>
+          <div class="cat"><i class="fa-solid fa-laptop"></i>Laptops y accesorios</div>
+          <div class="cat"><i class="fa-solid fa-shirt"></i>Uniformes y mandiles</div>
+          <div class="cat"><i class="fa-solid fa-flask"></i>Material de laboratorio</div>
+        </div>
+        <div class="section-head">
+          <h2>Avisos recientes</h2><a onclick="showView('catalogView')">Ver todo el catálogo →</a>
+        </div>
+        <div class="recent">
+          <div class="item"><b>Cálculo de una variable — Stewart</b><em>S/ 95.00</em>Muy buen estado · Cálculo I</div>
+          <div class="item"><b>Calculadora ClassWiz fx-991</b><em>S/ 120.00</em>Como nuevo · Física II</div>
+          <div class="item"><b>Escuadras y escalímetro Faber</b><em>S/ 38.00</em>Buen estado · Dibujo Técnico</div>
+          <div class="item"><b>Apuntes de Contabilidad General</b><em>S/ 25.00</em>Con marcas de uso</div>
+        </div>
+        <div class="steps3">
+          <div class="step3"><i>1</i>
+            <div><b>Publica tu aviso</b><span>Sube fotografías, indica el estado del producto y tu precio pedido.</span>
+            </div>
+          </div>
+          <div class="step3"><i>2</i>
+            <div><b>Recibe y negocia ofertas</b><span>Acepta, rechaza o contraoferta desde el hilo de
+                negociación.</span></div>
+          </div>
+          <div class="step3"><i>3</i>
+            <div><b>Coordinen la entrega</b><span>Elijan punto y horario en el campus y confirmen la entrega.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1.2 INICIAR SESIÓN -->
+    <section id="loginView" class="view-section">
+      <div class="auth-split">
+        <div class="auth-photo">
+          <div class="quote">«Vendí mis libros de Cálculo en tres días y compré los de Física del ciclo
+            siguiente.»<small>Rosa María Quispe Ríos · Administración</small></div>
+        </div>
+        <div class="auth-form">
+          <div class="box">
+            <h1>Iniciar sesión</h1>
+            <p class="sub">Usa tu correo institucional @aloe.ulima.edu.pe para ofertar, publicar y coordinar entregas.
+            </p>
+            <div class="alert alert-error" id="loginError" style="display:none"></div>
+            <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+              <div class="field"><label for="loginEmail">Correo institucional</label>
+                <input type="email" id="loginEmail" placeholder="20201234@aloe.ulima.edu.pe"><span class="error-msg"
+                  id="loginEmailError"></span>
+              </div>
+              <div class="field"><label for="loginPassword">Contraseña</label>
+                <div class="pass-wrap"><input type="password" id="loginPassword" placeholder="••••••••••"><button
+                    type="button" class="pass-toggle" onclick="togglePassword('loginPassword',this)">Mostrar</button>
+                </div>
+                <span class="error-msg" id="loginPasswordError"></span>
+              </div>
+              <div class="form-foot"><span></span><a onclick="startRecovery()">¿Olvidaste tu contraseña?</a></div>
+              <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
+            </form>
+            <p class="switch">¿No tienes cuenta? <a onclick="showView('registerView')"><b>Crear cuenta</b></a></p>
+            <p class="demo">Demo: <code>20201234@aloe.ulima.edu.pe</code> / <code>Rosa1234</code> · admin:
+              <code>20150001@aloe.ulima.edu.pe</code> / <code>Admin1234</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1.3 REGISTRO -->
+    <section id="registerView" class="view-section">
+      <div class="wrap center-page">
+        <div class="card card-narrow">
+          <h1>Crear cuenta</h1>
+          <p class="sub">Solo para estudiantes con correo institucional. La cuenta se activa al confirmar el correo.</p>
+          <div class="alert alert-error" id="regAlert" style="display:none"></div>
+          <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
             <div class="row2">
-              <div class="field"><label for="profileNombres">Nombres</label><input type="text" id="profileNombres"><span class="error-msg" id="profileNombresError"></span></div>
-              <div class="field"><label for="profileApellidos">Apellidos</label><input type="text" id="profileApellidos"><span class="error-msg" id="profileApellidosError"></span></div>
+              <div class="field"><label for="regNombres">Nombres</label><input type="text" id="regNombres"
+                  placeholder="Ej. Rosa María"><span class="error-msg" id="regNombresError"></span></div>
+              <div class="field"><label for="regApellidos">Apellidos</label><input type="text" id="regApellidos"
+                  placeholder="Ej. Quispe Ríos"><span class="error-msg" id="regApellidosError"></span></div>
+            </div>
+            <div class="field"><label for="regEmail">Correo institucional</label><input type="email" id="regEmail"
+                placeholder="codigo@aloe.ulima.edu.pe"><span class="error-msg" id="regEmailError"></span></div>
+            <div class="row2">
+              <div class="field"><label for="regPassword">Contraseña</label><input type="password" id="regPassword"
+                  placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, una mayúscula y un
+                  número.</span><span class="error-msg" id="regPasswordError"></span></div>
+              <div class="field"><label for="regConfirm">Confirmar contraseña</label><input type="password"
+                  id="regConfirm" placeholder="••••••••••"><span class="error-msg" id="regConfirmError"></span></div>
             </div>
             <div class="row2">
-              <div class="field"><label for="profileEmail">Correo institucional</label><input type="email" id="profileEmail" readonly><span class="hint">No editable.</span></div>
-              <div class="field"><label for="profilePhone">Teléfono de contacto</label><input type="tel" id="profilePhone" placeholder="987 654 321"><span class="hint">Solo se comparte al cerrarse un acuerdo.</span><span class="error-msg" id="profilePhoneError"></span></div>
+              <div class="field"><label for="regCarrera">Carrera</label>
+                <select id="regCarrera">
+                  <option value="" selected>Selecciona una opción</option>
+                  <option>Administración</option>
+                  <option>Arquitectura</option>
+                  <option>Comunicación</option>
+                  <option>Contabilidad</option>
+                  <option>Derecho</option>
+                  <option>Economía</option>
+                  <option>Ingeniería Civil</option>
+                  <option>Ingeniería Industrial</option>
+                  <option>Ingeniería de Sistemas</option>
+                  <option>Marketing</option>
+                  <option>Psicología</option>
+                </select>
+                <span class="error-msg" id="regCarreraError"></span>
+              </div>
+              <div class="field"><label for="regCiclo">Ciclo</label>
+                <select id="regCiclo">
+                  <option value="" selected>Selecciona ciclo</option>
+                  <option>Primer</option>
+                  <option>Segundo</option>
+                  <option>Tercer</option>
+                  <option>Cuarto</option>
+                  <option>Quinto</option>
+                  <option>Sexto</option>
+                  <option>Séptimo</option>
+                  <option>Octavo</option>
+                  <option>Noveno</option>
+                  <option>Décimo</option>
+                </select>
+                <span class="error-msg" id="regCicloError"></span>
+              </div>
             </div>
-          </div>
-          <div class="card"><h2>Punto de encuentro preferido</h2>
-            <p class="hint">Se propondrá por defecto al coordinar tus entregas.</p>
-            <input type="hidden" id="profileLocation">
-            <div class="chips" id="locChips">
-              <button type="button" class="chip" onclick="setLocation('Biblioteca')">Biblioteca</button>
-              <button type="button" class="chip" onclick="setLocation('Puerta 1')">Puerta 1</button>
-              <button type="button" class="chip" onclick="setLocation('Cafetería del pabellón E')">Cafetería del pabellón E</button>
-              <button type="button" class="chip" onclick="setLocation('Explanada central')">Explanada central</button>
-              <button type="button" class="chip" onclick="setLocation('Patio del pabellón H')">Patio del pabellón H</button>
-            </div>
-            <div class="form-actions"><button type="button" class="btn btn-ghost" onclick="fillProfile()">Descartar</button><button type="submit" class="btn btn-primary">Guardar cambios</button></div>
-          </div>
-        </form>
-        <form id="passwordForm" class="card" onsubmit="handleChangePassword(event)" novalidate>
-          <h2>Cambiar contraseña</h2>
-          <div class="field"><label for="pwdCurrent">Contraseña actual</label><input type="password" id="pwdCurrent" placeholder="••••••••••"><span class="error-msg" id="pwdCurrentError"></span></div>
-          <div class="row2">
-            <div class="field"><label for="pwdNew">Nueva contraseña</label><input type="password" id="pwdNew" placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, una mayúscula y un número.</span><span class="error-msg" id="pwdNewError"></span></div>
-            <div class="field"><label for="pwdConfirm">Confirmar nueva contraseña</label><input type="password" id="pwdConfirm" placeholder="••••••••••"><span class="error-msg" id="pwdConfirmError"></span></div>
-          </div>
-          <div class="form-actions"><button type="submit" class="btn btn-secondary">Actualizar contraseña</button></div>
-        </form>
-      </div>
-      <aside class="stack">
-        <div class="card profile-card">
-          <div class="avatar" id="profileAvatar">RQ</div>
-          <h2 id="profileName"></h2>
-          <span class="badge-ok"><i class="fa-solid fa-circle-check"></i> Verificado</span>
-          <hr>
-          <p class="eyebrow">Cerrar sesión</p>
-          <p class="hint" style="margin:6px 0 12px">En este dispositivo.</p>
-          <button class="btn btn-secondary btn-block" onclick="logout()">Salir</button>
+            <div class="field"><label class="check-label"><input type="checkbox" id="regTerms">Acepto las normas de
+                convivencia del tablón y el registro de mis acuerdos.</label><span class="error-msg"
+                id="regTermsError"></span></div>
+            <div class="form-actions"><a class="btn btn-ghost" onclick="showView('loginView')">Cancelar</a><button
+                type="submit" class="btn btn-primary">Crear cuenta</button></div>
+          </form>
         </div>
-      </aside>
-    </div>
-  </div></section>
+      </div>
+    </section>
 
-  <!-- Vistas de otras historias (marcadores para probar rutas protegidas) -->
-  <section id="catalogView" class="view-section"><div class="wrap"><div class="card empty"><div class="big-icon"><i class="fa-solid fa-book-open"></i></div><h2>Catálogo</h2><p class="sub">Vista principal del rol USUARIO. Aquí se integra la HU-3.</p></div></div></section>
-  <section id="adminView" class="view-section"><div class="wrap"><div class="card empty"><div class="big-icon"><i class="fa-solid fa-inbox"></i></div><h2>Bandeja de reportes</h2><p class="sub">Vista principal del rol ADMINISTRADOR. Aquí se integra la HU-7.</p></div></div></section>
+    <!-- 1.4 RECUPERAR CONTRASEÑA -->
+    <section id="recoverView" class="view-section">
+      <div class="wrap">
+        <div class="steps-bar">
+          <div class="step-item" id="stepBar1"><span></span>Paso 1 · Correo</div>
+          <div class="step-item" id="stepBar2"><span></span>Paso 2 · Enlace</div>
+          <div class="step-item" id="stepBar3"><span></span>Paso 3 · Nueva contraseña</div>
+        </div>
+        <div class="card card-mid" style="margin-bottom:48px">
+          <form id="recoverStep1" class="recover-step" onsubmit="handleRecoverEmail(event)" novalidate>
+            <h1>Ingresa tu correo institucional</h1>
+            <p class="sub">Te enviaremos un enlace para crear una nueva contraseña. El enlace vence en 30 minutos.</p>
+            <div class="field"><label for="recEmail">Correo institucional</label><input type="email" id="recEmail"
+                placeholder="20201234@aloe.ulima.edu.pe"><span class="error-msg" id="recEmailError"></span></div>
+            <div class="form-foot"><a onclick="showView('loginView')"><b>Volver al inicio de sesión</b></a><button
+                type="submit" class="btn btn-primary">Enviar enlace</button></div>
+          </form>
+          <div id="recoverStep2" class="recover-step" style="text-align:center">
+            <div class="big-icon"><i class="fa-regular fa-envelope"></i></div>
+            <h1>Revisa tu correo</h1>
+            <p class="sub">Enviamos el enlace a <b id="recSentTo"></b>. Si no lo ves, revisa la carpeta de correo no
+              deseado.</p>
+            <button class="btn btn-primary btn-block" onclick="openRecoveryLink()">Simular clic en el enlace del
+              correo</button>
+            <p class="demo">Demo: el proyecto no envía correos reales.</p>
+            <button class="btn btn-secondary btn-block" onclick="goRecoverStep(1)">Usar otro correo</button>
+          </div>
+          <form id="recoverStep3" class="recover-step" onsubmit="handleNewPassword(event)" novalidate>
+            <h1>Crea tu nueva contraseña</h1>
+            <div class="field" style="margin-top:16px"><label for="newPass">Nueva contraseña</label><input
+                type="password" id="newPass" placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, con una
+                mayúscula y un número.</span><span class="error-msg" id="newPassError"></span></div>
+            <div class="field"><label for="newPassConfirm">Confirmar contraseña</label><input type="password"
+                id="newPassConfirm" placeholder="••••••••••"><span class="error-msg" id="newPassConfirmError"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Guardar contraseña</button>
+          </form>
+        </div>
+      </div>
+    </section>
 
-  <!-- 1.6 ACCESO DENEGADO -->
-  <section id="deniedView" class="view-section"><div class="wrap"><div class="empty">
-    <div class="big-icon danger"><i class="fa-solid fa-lock"></i></div>
-    <h1>Acceso denegado</h1><p class="sub" id="deniedMsg"></p>
-    <button class="btn btn-primary" onclick="goHome()">Volver al catálogo</button>
-  </div></div></section>
+    <!-- 1.5 MI CUENTA -->
+    <section id="profileView" class="view-section">
+      <div class="wrap">
+        <div class="page-head">
+          <h1>Mi cuenta</h1>
+          <p class="sub" id="profileDetail"></p>
+        </div>
+        <div class="account-grid">
+          <div class="stack">
+            <form id="profileForm" class="stack" onsubmit="handleUpdateProfile(event)" novalidate>
+              <div class="card">
+                <h2>Datos personales</h2>
+                <div class="row2">
+                  <div class="field"><label for="profileNombres">Nombres</label><input type="text"
+                      id="profileNombres"><span class="error-msg" id="profileNombresError"></span></div>
+                  <div class="field"><label for="profileApellidos">Apellidos</label><input type="text"
+                      id="profileApellidos"><span class="error-msg" id="profileApellidosError"></span></div>
+                </div>
+                <div class="row2">
+                  <div class="field"><label for="profileEmail">Correo institucional</label><input type="email"
+                      id="profileEmail" readonly><span class="hint">No editable.</span></div>
+                  <div class="field"><label for="profilePhone">Teléfono de contacto</label><input type="tel"
+                      id="profilePhone" placeholder="987 654 321"><span class="hint">Solo se comparte al cerrarse un
+                      acuerdo.</span><span class="error-msg" id="profilePhoneError"></span></div>
+                </div>
+              </div>
+              <div class="card">
+                <h2>Punto de encuentro preferido</h2>
+                <p class="hint">Se propondrá por defecto al coordinar tus entregas.</p>
+                <input type="hidden" id="profileLocation">
+                <div class="chips" id="locChips">
+                  <button type="button" class="chip" onclick="setLocation('Biblioteca')">Biblioteca</button>
+                  <button type="button" class="chip" onclick="setLocation('Puerta 1')">Puerta 1</button>
+                  <button type="button" class="chip" onclick="setLocation('Cafetería del pabellón E')">Cafetería del
+                    pabellón E</button>
+                  <button type="button" class="chip" onclick="setLocation('Explanada central')">Explanada
+                    central</button>
+                  <button type="button" class="chip" onclick="setLocation('Patio del pabellón H')">Patio del pabellón
+                    H</button>
+                </div>
+                <div class="form-actions"><button type="button" class="btn btn-ghost"
+                    onclick="fillProfile()">Descartar</button><button type="submit" class="btn btn-primary">Guardar
+                    cambios</button></div>
+              </div>
+            </form>
+            <form id="passwordForm" class="card" onsubmit="handleChangePassword(event)" novalidate>
+              <h2>Cambiar contraseña</h2>
+              <div class="field"><label for="pwdCurrent">Contraseña actual</label><input type="password" id="pwdCurrent"
+                  placeholder="••••••••••"><span class="error-msg" id="pwdCurrentError"></span></div>
+              <div class="row2">
+                <div class="field"><label for="pwdNew">Nueva contraseña</label><input type="password" id="pwdNew"
+                    placeholder="••••••••••"><span class="hint">Mínimo 8 caracteres, una mayúscula y un
+                    número.</span><span class="error-msg" id="pwdNewError"></span></div>
+                <div class="field"><label for="pwdConfirm">Confirmar nueva contraseña</label><input type="password"
+                    id="pwdConfirm" placeholder="••••••••••"><span class="error-msg" id="pwdConfirmError"></span></div>
+              </div>
+              <div class="form-actions"><button type="submit" class="btn btn-secondary">Actualizar contraseña</button>
+              </div>
+            </form>
+          </div>
+          <aside class="stack">
+            <div class="card profile-card">
+              <div class="avatar" id="profileAvatar">RQ</div>
+              <h2 id="profileName"></h2>
+              <span class="badge-ok"><i class="fa-solid fa-circle-check"></i> Verificado</span>
+              <hr>
+              <p class="eyebrow">Cerrar sesión</p>
+              <p class="hint" style="margin:6px 0 12px">En este dispositivo.</p>
+              <button class="btn btn-secondary btn-block" onclick="logout()">Salir</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- Vistas de otras historias (marcadores para probar rutas protegidas) -->
+    <section id="catalogView" class="view-section">
+      <div class="wrap">
+        <div class="card empty">
+          <div class="big-icon"><i class="fa-solid fa-book-open"></i></div>
+          <h2>Catálogo</h2>
+          <p class="sub">Vista principal del rol USUARIO. Aquí se integra la HU-3.</p>
+        </div>
+      </div>
+    </section>
+    <section id="adminView" class="view-section">
+      <div class="wrap">
+        <div class="card empty">
+          <div class="big-icon"><i class="fa-solid fa-inbox"></i></div>
+          <h2>Bandeja de reportes</h2>
+          <p class="sub">Vista principal del rol ADMINISTRADOR. Aquí se integra la HU-7.</p>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  <span>Universidad de Lima · Campus Monterrico · Av. Javier Prado Este 4600</span>
-  <div><a>Normas del tablón</a><a>Mesa de ayuda</a><a>tablon@ulima.edu.pe</a><a onclick="showView('adminView')">Demo: ruta admin</a></div>
-</footer>
+    <!-- 1.6 ACCESO DENEGADO -->
+    <section id="deniedView" class="view-section">
+      <div class="wrap">
+        <div class="empty">
+          <div class="big-icon danger"><i class="fa-solid fa-lock"></i></div>
+          <h1>Acceso denegado</h1>
+          <p class="sub" id="deniedMsg"></p>
+          <button class="btn btn-primary" onclick="goHome()">Volver al catálogo</button>
+        </div>
+      </div>
+    </section>
 
-<script src="java_historia1.js"></script>
+    <!-- PARTE 2 : PUBLICACIONES : SEBASTIAM SOLORZANO-->
+    <!-- Apartado 2.1 : Tabla Mis publicaciones -->
+    <section id="misPublicacionesView" class="view-section">
+      <div class="page-header">
+        <div>
+          <h2>Mis publicaciones</h2>
+          <p class="Subtitulo" id="misPubResumen">6 avisos . 9 ofertas por responder</p>
+        </div>
+        <!-- Boton de nuevo aviso -->
+        <button class="Boton-PrimarioBiblioteca" onclick="showView('nuevoAvisoView')">
+          <i class="fa-solid fa-plus"></i>
+          Nuevo Aviso
+        </button>
+      </div>
+
+      <div class="filter-bar">
+        <div class="chip-group" id="misPubFiltros">
+          <button class="chip chip-active" data-filtro="todos" onclick="filtrarMisPublicaciones('todos')">Todos ·
+            6</button>
+          <button class="chip" data-filtro="publicado" onclick="filtrarMisPublicaciones('publicado')">Publicados ·
+            3</button>
+          <button class="chip" data-filtro="pausado" onclick="filtrarMisPublicaciones('pausado')">Pausados · 1</button>
+          <button class="chip" data-filtro="borrador" onclick="filtrarMisPublicaciones('borrador')">Borradores ·
+            1</button>
+          <button class="chip" data-filtro="vendido" onclick="filtrarMisPublicaciones('vendido')">Vendidos · 1</button>
+        </div>
+        <div class="search-inline">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="misPubBuscar" placeholder="Buscar en mis avisos…"
+            oninput="buscarMisPublicaciones(this.value)">
+        </div>
+      </div>
+      <!-- Subtabla de variables  -->
+      <table class="tabla-avisos">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Aviso</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Ofertas</th>
+            <th>Publicado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- Contenido de la tabla -->
+        <tbody id="misPubTbody">
+          <!--Primeria fila de la tabla -->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Cálculo de una variable - Stewart, 8.a ed.</span>
+              <span class="aviso-meta">Libros de texto . Cálculo I . Muy buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 95.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas-datos-incluidos">4 ofertas</td>
+            <td class="Celda-Fecha">18/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Segunda fila de la tabla-->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Calculadora científica ClassWiz fx-991</span>
+              <span class="aviso-meta">Calculadoras · Física II · Como nuevo</span>
+            </td>
+            <td class="celda-precio">S/ 120.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas-datos-incluidos">3 ofertas</td>
+            <td class="Celda-Fecha">22/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Tercera fila de la tabla-->
+          <tr data-estado="pausado" class="fila-resaltada">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso-alternativo">Juego de escuadras y escalímetro Faber</span>
+              <span class="aviso-meta">Instrumentos de dibujo · Dibujo Técnico · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 38.00</td>
+            <td><span class="badge publicado-yellow">Pausado</span></td>
+            <td class="celda-ofertas-datos-incluidos">2 ofertas</td>
+            <td class="Celda-Fecha">10/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Cuarta fila de la tabla-->
+          <tr data-estado="publicado">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Apuntes de Contabilidad General — 2 ciclos</span>
+              <span class="aviso-meta">Apuntes y guías · Contabilidad General · Con marcas de uso</span>
+            </td>
+            <td class="celda-precio">S/ 25.00</td>
+            <td><span class="badge publicado-azul">Publicado</span></td>
+            <td class="celda-ofertas">Sin ofertas</td>
+            <td class="Celda-Fecha">29/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Quinta fila de la tabla-->
+          <tr data-estado="borrador">
+            <td>
+              <div class="foto-vacia"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Mandil de laboratorio talla M</span>
+              <span class="aviso-meta">Uniformes y mandiles · Química General · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 45.00</td>
+            <td><span class="badge publicado-borrador">Borrador</span></td>
+            <td class="celda-ofertas">-</td>
+            <td class="Celda-Fecha">Sin publicar</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+          <!-- Sexta fila de la tabla-->
+          <tr data-estado="vendido">
+            <td>
+              <div class="foto-para-imagen"></div>
+            </td>
+            <td>
+              <span class="Titulo-aviso">Física para ciencias e ingeniería — Serway, tomo I</span>
+              <span class="aviso-meta">Libros de texto · Física II · Buen estado</span>
+            </td>
+            <td class="celda-precio">S/ 110.00</td>
+            <td><span class="badge publicado-verde">Vendido</span></td>
+            <td class="celda-ofertas">Cerrado con 1</td>
+            <td class="Celda-Fecha">05/08/2026</td>
+            <td><button class="Boton-para-acciones-tabla">Acciones<i class="fa-solid fa-chevron"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="estado-vacio" id="misPubVacio" style="display:none;">
+        <div class="estado-vacio-icono"><i class="fa-regular fa-folder-open"></i></div>
+        <h3>Ningún aviso coincide</h3>
+        <p class="subtitle">Prueba con otro filtro o borra la búsqueda para ver todos tus avisos.</p>
+        <button class="btn btn-primary" onclick="filtrarMisPublicaciones('todos')">Ver todos mis avisos</button>
+      </div>
+
+      <!-- Barra de abajo de la tabla-->
+      <div class="paginacion">
+        <span id="misPubConteo">Mostrando 6 de 6 avisos</span>
+        <div class="Botones-paginacion">
+          <button class="bton-pagina"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="bton-central-pagina">1</button>
+          <button class="bton-pagina"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Universidad de Lima · Campus Monterrico · Av. Javier Prado Este 4600</span>
+    <div><a>Normas del tablón</a><a>Mesa de ayuda</a><a>tablon@ulima.edu.pe</a><a onclick="showView('adminView')">Demo:
+        ruta admin</a></div>
+  </footer>
+
+  <script src="java_historia1.js"></script>
 </body>
+
 </html>
