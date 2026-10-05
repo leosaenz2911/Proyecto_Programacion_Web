@@ -147,8 +147,8 @@ function filtrarMisPublicaciones(estado) {
 }
 // Funcion para la barra de busqueda de publicaciones en avisos//
 
-function buscarPublicacionesAvisos() {
-  misPublicacionesBusqueda = texto.trim().toLowerCase();
+function buscarMisPublicaciones(texto) {
+  misPubtexto = texto.trim().toLowerCase();
   aplicarFiltroPublicaciones();
 }
 
@@ -160,9 +160,9 @@ function aplicarFiltroPublicaciones() {
   // Realiza el recorrido de todas las filas donde en cada avance se suma mas 1 al visible , si queda en 0 se salta al estado vacio y oculta la tabla //
 
   filas.forEach(fila => {
-    const coincidenciaEstado = misPublicacionesActivo === 'todos' || filas.dataset.estado === misPublicacionesActivo;
+    const coincidenciaEstado = misPublicacionesActivo === 'todos' || fila.dataset.estado === misPublicacionesActivo;
     const titulo = fila.querySelectorAll('.aviso-titulo , .Titulo-aviso , .Titulo-aviso-alternativo')?.textContent.toLowerCase() || '';
-    const coincidenciaTexto = misPublicacionesActivo === '' || titulo.includes(misPublicacionesActivo);
+    const coincidenciaTexto = misPubtexto === '' || titulo.includes(misPubtexto);
     const visible = coincidenciaEstado && coincidenciaTexto;
     fila.style.display = visible ? '' : 'none';
     if (visible) visibles++;

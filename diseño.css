@@ -382,7 +382,220 @@ footer {
   font-size: 0.85rem;
 }
 
+ /*<!-- PARTE 2 : PUBLICACIONES : SEBASTIAM SOLORZANO-->
+    <!-- Apartado 2.1 : Tabla Mis publicaciones --> */
 
+/* Tabla de publicacones : Para ajustar y centrar */
+#misPubliacionesView {
+  width : 100%;
+  max-width: 95vw;
+  margin : 2rem auto;
+  background-color : yellow;
+}
+
+/* Para titulo y boton (Orden) */
+.page-header {
+  display : flex;  /* Con flex colocamos los elementos en una fila y con between a cada extremo*/
+  justify-content : space-between;
+  align-items : center;
+  margin-bottom : 1.5rem;
+}
+
+/* Para el titulo */
+.page-header h2 {
+  font-size : 1.75rem;
+  font-weight: 800;
+  color : black;
+}
+.Subtitulo {
+  margin-top : 0.25rem;
+  font-size : 0.9rem;
+  color : var(--text-muted);
+}
+
+/* Para el boton de aviso*/
+.Boton-PrimarioBiblioteca {
+  display : inline-block;
+  align-items: center;
+  gap : 0.5rem;
+
+  padding : 0.7rem 1.1 rem;
+  background-color : #C1562E;
+  color: white;
+
+  font-weight : 700;
+  cursor : pointer;
+
+  border : none;
+  border-radius : 8px;
+}
+
+.filter-bar {
+  display : flex;
+  justify-content : space-between;
+  align-items : center;
+
+  gap : 1rem; /* Genera una brecha exclusiva entre los elementos*/
+  margin-bottom : 1rem;
+}
+
+/* Para los filtros uno al lado del otro y luego dar su estilo*/
+.chip-group {
+  display : flex;
+  align-items : center;
+  gap : 0.5rem;
+  flex-wrap : wrap; /* Permite bajar a algunos elementos si ocupan todo el espacio */
+}
+
+.chip {
+  padding : 0.45rem 0.9rem;
+
+  background-color : white;
+  color : black;
+
+  border : 1px solid gray;
+  border-radius : 999px; /*para el rendondeado de border */
+
+  font-size : 0.82rem;
+  font-weight : 600;
+
+  cursor : pointer;
+}
+
+.chip-active {
+  background-color : #C1562E;
+  color : white;
+}
+
+
+/* Apartado de buscador*/
+
+.search-inline {
+  position : relative;
+  width : 260px;
+}
+
+.search-inline input {
+  width : 100%;
+
+  padding : 0.55rem 0.8rem; 
+  padding-left : 10px;
+
+  border : 1px solid var(--border);
+  border-radius : 6px;
+
+  background-color : white;
+  font-size : 0.75rem;
+}
+
+/* TABLA PRINCIPAL DE COMPRAS*/
+
+.tabla-avisos {
+  width : 100%;
+  border-collapse : collapse;
+  background-color : white;
+
+  border : 1px solid var(--border);
+  border-radius : 8px;
+
+
+  overflow: hidden; /*Para que el contenido no salga del borde */
+}
+
+/* Encabezado de la tabla*/
+
+.tabla-avisos thead {
+  background-color: #FAF8F6;
+}
+
+
+.tabla-avisos th {
+  padding : 0.75rem 0.8rem;
+
+  text-align : left;
+
+  font-size : 0.72rem;
+  font-weight : 700;
+
+  color : var(--text-muted);
+
+  text-transform :uppercase;
+
+  border-bottom : 1px solid var(--border);
+}
+
+/* Filas de la tabla*/
+.tabla-avisos td {
+  padding : 0.8rem ;
+
+  vertical-align : middle;
+
+  border-bottom : 1px solid var(--border);
+
+  font-size : 0.75rem;
+}
+
+.tabla-avisos tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-avisos tbody tr:hover {
+  background-color: #FCFAF8;
+}
+
+/* Parte de paginación*/
+
+.paginacion {
+  display : flex; 
+  align-items : center;
+  margin-top : 1rem;
+  font-size : 0.8rem;
+  gap : 10px;
+
+}
+
+/* Boton central , de izquierda y derecha*/
+
+.Botones-paginacion {
+  display : flex;
+  align-items : center;
+  gap : 0.5rem;
+}
+
+.bton-pagina {
+  width : 32px;
+  height : 32px;
+
+  display : flex;
+  align-items : center;
+  justify-content : center;
+
+  border : 1px solid var(--border);
+  border-radius : 6px;
+
+  background-color : white;
+  color : black;
+
+  cursor : pointer;
+
+}
+
+.bton-central-pagina {
+  width : 32px;
+  height : 32px;
+
+  display : flex;
+  align-items : center;
+  justify-content : center;
+
+  border : 1px solid var(--border);
+  border-radius : 6px;
+
+  background-color : #C1562E;
+  color : white;
+
+  cursor : pointer ;
+}
 
 
 
