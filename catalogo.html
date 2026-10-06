@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Tablón ULIma</title>
+    <link rel="stylesheet" href="css_catalogo.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo">Tablón ULima</div>
+        <div class="search-container">
+            <input type="text" id="input-busqueda" placeholder="¿Qué estás buscando? Ej. Stewart Cálculo">
+            <button id="btn-buscar">Buscar</button>
+        </div>
+        <div class="user-info">
+            <span class="badge-rol">USUARIO</span>
+            <span class="username">Carlos</span>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="#" class="active">Catálogo</a>
+        <a href="#">Mis publicaciones</a>
+        <a href="#">Favoritos</a>
+        <a href="#">Ofertas</a>
+        <a href="#">Acuerdos</a>
+        <a href="#">Calificaciones</a>
+        <a href="#">Mi cuenta</a>
+    </nav>
+
+    <main class="main-container">
+        <aside class="filters-sidebar">
+            <div class="filters-header">
+                <h3>Filtros</h3>
+                <button id="btn-limpiar-filtros">Limpiar</button>
+            </div>
+
+            <div class="filter-group">
+                <h4>CATEGORÍA</h4>
+                <label><input type="checkbox" name="categoria" value="Libros de texto"> Libros de texto (48)</label>
+                <label><input type="checkbox" name="categoria" value="Calculadoras"> Calculadoras (22)</label>
+                <label><input type="checkbox" name="categoria" value="Instrumentos de dibujo"> Instrumentos de dibujo (17)</label>
+                <label><input type="checkbox" name="categoria" value="Apuntes y guías"> Apuntes y guías (31)</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>ESTADO DEL PRODUCTO</h4>
+                <label><input type="checkbox" name="estado" value="Como nuevo"> Como nuevo</label>
+                <label><input type="checkbox" name="estado" value="Muy buen estado"> Muy buen estado</label>
+                <label><input type="checkbox" name="estado" value="Buen estado"> Buen estado</label>
+                <label><input type="checkbox" name="estado" value="Con marcas de uso"> Con marcas de uso</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>RANGO DE PRECIO</h4>
+                <div class="price-inputs">
+                    <span>S/</span> <input type="number" id="precio-min" placeholder="40">
+                    <span>-</span>
+                    <span>S/</span> <input type="number" id="precio-max" placeholder="120">
+                </div>
+            </div>
+        </aside>
+
+        <section class="catalog-content">
+            <div class="catalog-bar">
+                <span id="resultado-conteo">12 avisos encontrados</span>
+                <div class="sort-container">
+                    <label for="ordenar">Ordenar por</label>
+                    <select id="ordenar">
+                        <option value="recientes">Más recientes</option>
+                        <option value="asc">Precio ascendente</option>
+                        <option value="desc">Precio descendente</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="filtros-activos" class="active-filters">
+                <span>Filtros activos:</span>
+                <span class="tag-filter">Libros de texto ✕</span>
+                <span class="tag-filter">Cálculo I ✕</span>
+            </div>
+            <div class="cards-grid" id="grid-avisos">
+                <div class="card">
+                    <div class="card-img-placeholder">
+                        <button class="btn-fav">❤️</button>
+                    </div>
+                    <div class="card-body">
+                        <h4>Cálculo de una variable — Stewart, 8.ª ed.</h4>
+                        <p class="card-price">S/ 95.00</p>
+                        <p class="card-details">Muy buen estado · Cálculo I</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img-placeholder">
+                        <button class="btn-fav">🤍</button>
+                    </div>
+                    <div class="card-body">
+                        <h4>Calculadora científica ClassWiz fx-991</h4>
+                        <p class="card-price">S/ 120.00</p>
+                        <p class="card-details">Como nuevo · Física II</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="estado-vacio" class="empty-state" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <h3>Ningún aviso coincide con tu búsqueda</h3>
+                <p>Prueba con menos filtros o amplía el rango de precio.</p>
+                <button class="btn-primary" id="btn-reset-vacio">Limpiar filtros</button>
+            </div>
+        </section>
+    </main>
+    <script src="java_catalogo.js"></script>
+</body>
+</html>
+
+
