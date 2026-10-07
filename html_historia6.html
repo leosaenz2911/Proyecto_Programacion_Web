@@ -8,13 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css_historia1.css">
+  <link rel="stylesheet" href="css_historia6.css">
 </head>
 <body>
 
 <header class="topbar">
   <div class="topbar-main">
-    <a class="brand" onclick="goHome()"><img class="brand-logo" src="img/logo_ulima.png" alt=""><span>Tablón ULima</span></a>
+    <a class="brand" onclick="goHome()"><img class="brand-logo" src="logo_ulima.png" alt=""><span>Tablón ULima</span></a>
     <nav class="nav-links" id="navPublic">
       <a onclick="showView('catalogView')">Catálogo</a><a onclick="showView('landingView')">Cómo funciona</a><a>Normas del tablón</a><a>Ayuda</a>
     </nav>
@@ -218,6 +218,131 @@
     </div>
   </div></section>
 
+  <!-- ========================================== -->
+  <!-- AÑADIDO: VISTAS HU-6                       -->
+  <!-- ========================================== -->
+  
+  <!-- 6.3 MIS CALIFICACIONES -->
+  <section id="myRatingsView" class="view-section"><div class="wrap">
+    <div class="page-head" style="padding-bottom: 0;">
+      <h1>Mis calificaciones</h1>
+    </div>
+    
+    <div class="custom-tabs" style="margin-top: 24px;">
+      <button class="tab-btn active" id="tabEmitidas" onclick="switchMyRatingsTab('emitidas')">Emitidas <span id="countEmitidas">(0)</span></button>
+      <button class="tab-btn" id="tabRecibidas" onclick="switchMyRatingsTab('recibidas')">Recibidas <span id="countRecibidas">(0)</span></button>
+    </div>
+    
+    <div class="layout-grid-hu6">
+      <div id="myRatingsList" class="ratings-list">
+        <!-- Inyectado por JS -->
+      </div>
+      
+      <aside>
+        <div class="card" style="padding: 24px;">
+          <div class="eyebrow" style="margin-bottom: 8px;" id="summaryTabTitle">PESTAÑA «EMITIDAS»</div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <span style="font-size: 40px; font-weight: 800; line-height: 1; color: var(--ink);" id="summaryAvg">0.0</span>
+            <div>
+              <div style="color: var(--terracota); font-size: 16px; letter-spacing: 2px;" id="summaryStars">☆☆☆☆☆</div>
+              <div class="hint" id="summaryCount">promedio de 0 calificaciones</div>
+            </div>
+          </div>
+          <span class="badge-ok" id="summaryBadge" style="display:none; margin-top:0;"><i class="fa-solid fa-circle-check"></i> Vendedor confiable</span>
+        </div>
+      </aside>
+    </div>
+  </div></section>
+
+  <!-- 6.1 FORMULARIO DE CALIFICAR -->
+  <section id="rateView" class="view-section"><div class="wrap" style="padding-top: 28px;">
+    <div style="max-width: 720px;">
+      <div class="hint" style="margin-bottom: 16px;">
+        Mis acuerdos &gt; <span id="rateAgreementCode">A-0000</span> &gt; <strong style="color: var(--ink);">Calificar</strong>
+      </div>
+      
+      <h1 style="margin-bottom: 8px;" id="rateTitle">¿Cómo te fue?</h1>
+      <p class="sub" style="margin-bottom: 32px;">Tu calificación es pública y ayuda a que el tablón siga siendo confiable.</p>
+
+      <div class="card" style="display: flex; gap: 16px; align-items: center; margin-bottom: 32px; padding: 24px;">
+        <div style="width: 64px; height: 64px; background-color: var(--border); border-radius: 8px; flex-shrink: 0;"></div>
+        <div>
+          <h3 style="font-size: 18px; margin-bottom: 4px;" id="rateProductName">Cargando producto...</h3>
+          <p class="hint" style="margin-bottom: 6px;" id="rateAgreementDetails">Cargando detalles...</p>
+          <p style="font-weight: 700; font-size: 16px; color: var(--ink); margin:0;"><span id="ratePrice">S/ 0.00</span> <span style="font-weight: 400; font-size: 14px; color: var(--muted);" id="rateCounterpartRole">...</span></p>
+        </div>
+      </div>
+
+      <form id="rateForm" onsubmit="submitRating(event)">
+        <div class="field" style="margin-bottom: 32px;">
+          <label>TU PUNTAJE</label>
+          <div class="rate-stars" id="rateStars" style="margin-bottom: 8px;">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <span class="hint" id="rateHint">Selecciona un puntaje para publicar tu calificación.</span>
+        </div>
+
+        <div class="field" style="margin-bottom: 32px;">
+          <label>¿QUÉ DESTACARÍAS? (OPCIONAL)</label>
+          <div class="chips" id="rateChips">
+            <!-- JS -->
+          </div>
+        </div>
+
+        <div class="field" style="margin-bottom: 8px;">
+          <label for="rateComment">COMENTARIO</label>
+          <textarea id="rateComment" placeholder="Cuéntale brevemente qué pasó..." maxlength="300" style="height: 100px; resize: none; padding:12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; outline:none; background:var(--surface);"></textarea>
+          <span class="hint" id="rateCount" style="margin-top: 6px;">0/300 caracteres. Evita datos personales.</span>
+        </div>
+
+        <p class="hint" style="margin: 24px 0 32px 0;" id="rateDeadlineText">Puedes editar tu calificación hasta el ...</p>
+
+        <div class="form-actions" style="justify-content: flex-start;">
+          <button type="button" class="btn btn-ghost" onclick="showView('myRatingsView')">Calificar después</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitRate" disabled>Publicar calificación</button>
+        </div>
+      </form>
+    </div>
+  </div></section>
+
+  <!-- 6.2 PERFIL PÚBLICO -->
+  <section id="publicProfileView" class="view-section"><div class="wrap" style="padding-top: 28px;">
+    <div class="hint" style="margin-bottom: 24px;">
+      <a style="cursor:pointer; color:var(--muted); text-decoration:none;" onclick="showView('myRatingsView')">Catálogo</a> &gt; <strong style="color: var(--ink);">Perfil público</strong>
+    </div>
+
+    <div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 40px;">
+      <div class="avatar" id="profileAvatarHU6" style="width: 88px; height: 88px; font-size: 28px;">..</div>
+      <div style="flex: 1;">
+        <h1 style="margin-bottom: 8px; display: flex; align-items: center; gap: 12px;">
+          <span id="profileNameHU6">Cargando...</span>
+          <span id="profileBadgeHU6" class="badge-ok" style="display: none; margin-top:0; font-size:12px;"><i class="fa-solid fa-circle-check"></i> Vendedor confiable</span>
+        </h1>
+        <p class="sub" style="font-size: 15px; margin-bottom: 24px;" id="profileCareerHU6">...</p>
+        <div style="display: flex; gap: 40px;">
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--ink);" id="profileAvgStarsHU6">0.0 ★</div>
+            <div class="hint" id="profileTotalReviewsHU6">0 calificaciones</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--ink);" id="profileAgreementsHU6">0</div>
+            <div class="hint">acuerdos cerrados</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-secondary" style="color: var(--err); border-color: var(--border);"><i class="fa-solid fa-flag"></i> Reportar usuario</button>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom: 16px;">Últimas calificaciones recibidas</h2>
+    <div class="card" style="padding: 0;">
+      <div id="publicReviewsList">
+        <!-- JS -->
+      </div>
+    </div>
+  </div></section>
+
   <!-- Vistas de otras historias (marcadores para probar rutas protegidas) -->
   <section id="catalogView" class="view-section"><div class="wrap"><div class="card empty"><div class="big-icon"><i class="fa-solid fa-book-open"></i></div><h2>Catálogo</h2><p class="sub">Vista principal del rol USUARIO. Aquí se integra la HU-3.</p></div></div></section>
   <section id="adminView" class="view-section"><div class="wrap"><div class="card empty"><div class="big-icon"><i class="fa-solid fa-inbox"></i></div><h2>Bandeja de reportes</h2><p class="sub">Vista principal del rol ADMINISTRADOR. Aquí se integra la HU-7.</p></div></div></section>
@@ -236,6 +361,6 @@
   <div><a>Normas del tablón</a><a>Mesa de ayuda</a><a>tablon@ulima.edu.pe</a><a onclick="showView('adminView')">Demo: ruta admin</a></div>
 </footer>
 
-<script src="java_historia1.js"></script>
+<script src="java6.js"></script>
 </body>
 </html>
