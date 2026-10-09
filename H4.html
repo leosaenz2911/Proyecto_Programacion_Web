@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Ofertas y Negociación - Tablón ULima</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilosH4.css">
+    </head>
+    <body>
+    <header class="top-bar">
+        <div class="top-bar-left">
+        <div class="logo-container">
+            <span class="logo-icon"></span>
+            <span class="logo-text">Tablón ULima</span>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Buscar libros, calculadoras, apuntes...">
+        </div>
+        </div>
+        <div class="top-bar-right">
+        <button class="btn-publish">Publicar aviso</button>
+        <span class="badge-role">USUARIO</span>
+        <div class="user-profile">
+            <span class="avatar-circle" id="userInitials">DV</span>
+            <span class="user-name" id="userName">Diego Vargas ▾</span>
+        </div>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <ul>
+        <li><a href="#">Catálogo</a></li>
+        <li><a href="#">Mis publicaciones</a></li>
+        <li><a href="#">Favoritos</a></li>
+        <li><a href="#" class="active">Ofertas</a></li>
+        <li><a href="#">Acuerdos</a></li>
+        <li><a href="#">Calificaciones</a></li>
+        <li><a href="#">Mi cuenta</a></li>
+        </ul>
+    </nav>
+    <main class="content-container">
+        <h1 class="page-title">Ofertas</h1>
+        <div class="primary-tabs">
+        <button class="tab-main" id="tabRecibidasBtn" onclick="activarTab('recibidas')">
+            Recibidas · <span id="cantRecibidas">0</span>
+        </button>
+        <button class="tab-main active" id="tabEnviadasBtn" onclick="activarTab('enviadas')">
+            Enviadas · <span id="cantEnviadas">0</span>
+        </button>
+        </div>
+        <div class="filter-bar">
+        <div class="filter-pills" id="pillsContainer">
+        </div>
+        <span class="filter-legend" id="filterLegend">Ofertas realizadas en tus compras</span>
+        </div>
+        <div id="vistaRecibidas" class="tab-view hidden">
+        </div>
+        <div id="vistaEnviadas" class="tab-view">
+        <div id="listaEnviadasCards" class="sent-offers-list">
+        </div>
+        <div class="bottom-info-grid">
+            <div class="rules-box">
+            <strong>Reglas de la negociación.</strong> Una sola oferta activa por aviso. Solo puedes retirar tu oferta mientras el vendedor no haya respondido. Toda oferta sin respuesta vence a los 7 días.
+            </div>
+            <div class="alerts-stack">
+            <div id="alertExito" class="alert-banner alert-success hidden">
+                <span id="txtAlertExito"><strong>Éxito.</strong> Tu oferta se envió. Te avisaremos cuando el vendedor responda.</span>
+            </div>
+            <div id="alertRetiro" class="alert-banner alert-neutral hidden">
+                <span><strong>Oferta retirada.</strong> Puedes enviar una nueva cuando quieras.</span>
+            </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <div id="modalHilo" class="modal-backdrop hidden">
+        <div class="modal-card modal-hilo-card">
+        <div class="modal-header">
+            <div>
+                <span class="subtitle-modal" id="hiloAvisoSub">Ofertas recibidas</span>
+                <h3 id="modalTitulo">Negociación</h3>
+            </div>
+            <button class="close-modal-btn" onclick="cerrarModalHilo()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="chatHistory" class="chat-history-box"></div>
+            <div id="hiloFooterAcciones" class="hilo-actions-row">
+            </div>
+        </div>
+        </div>
+    </div>
+    <div id="modalContraoferta" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Enviar contraoferta</h3>
+                <button class="close-modal-btn" onclick="cerrarModalContraoferta()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-preview-box">
+                    <div class="pink-square"></div>
+                    <div>
+                        <h4 id="contraTituloAviso">Cálculo de una variable — Stewart, 8.ª ed.</h4>
+                        <p id="contraSubInfo">Muy buen estado · Cálculo I</p>
+                    </div>
+                </div>
+                <div class="comparison-bar-container">
+                    <div class="comp-col">
+                        <span>Oferta recibida</span>
+                        <strong id="contraOfertaRecibida">S/ 80.00</strong>
+                    </div>
+                    <div class="comp-col highlight-col">
+                        <span>Tu contraoferta</span>
+                        <strong id="contraTuOferta">S/ 84.00</strong>
+                    </div>
+                    <div class="comp-col">
+                        <span>Precio pedido</span>
+                        <strong id="contraPrecioPedido">S/ 95.00</strong>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputMontoContra">MONTO QUE PROPONES</label>
+                    <input type="number" id="inputMontoContra" step="1.00" oninput="actualizarVisualContraoferta()">
+                    <span class="helper-text" id="contraDiferenciaText">S/ 4.00 sobre la oferta recibida y S/ 11.00 bajo tu precio pedido.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputMensajeContra">MENSAJE (OPCIONAL)</label>
+                    <textarea id="inputMensajeContra" rows="2" placeholder="Escribe un mensaje corto..."></textarea>
+                </div>
+                <div id="contraMensajeErr" class="alert-box-error hidden">
+                    Corrige el monto. Sube tu oferta para poder enviarla.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-text-plain" onclick="cerrarModalContraoferta()">Cancelar</button>
+                <button class="btn-solid-terracota" onclick="enviarContraofertaForm()">Enviar contraoferta</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-left">
+        Universidad de Lima · Campus Monterrico · Av. Javier Prado Este 4600
+        </div>
+        <div class="footer-right">
+        <a href="#">Normas del tablón</a>
+        <a href="#">Mesa de ayuda</a>
+        <a href="mailto:tablon@ulima.edu.pe">tablon@ulima.edu.pe</a>
+        </div>
+    </footer>
+
+    <script src="scriptH4.js"></script>
+    </body>
+</html>
