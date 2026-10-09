@@ -28,7 +28,15 @@
         onsubmit="event.preventDefault();showView('catalogView')">
         <input type="search" placeholder="Buscar libros, calculadoras, apuntes…">
       </form>
+
+      <!-- BOTON ADICIONAL -->
       <div class="nav-right">
+
+        <button id="btnPublicarAvisoSebas" class="btn btn-primary" style="display:none" onclick="abrirNuevoAviso()">
+
+          Publicar aviso
+        </button>
+
         <span class="role-badge role-visitante" id="userRoleBadge">VISITANTE</span>
         <div id="navAuthButtons">
           <a class="btn btn-ghost" onclick="showView('loginView')">Ingresar</a>
@@ -132,7 +140,8 @@
             </form>
             <p class="switch">¿No tienes cuenta? <a onclick="showView('registerView')"><b>Crear cuenta</b></a></p>
             <p class="demo">Demo: <code>20201234@aloe.ulima.edu.pe</code> / <code>Rosa1234</code> · admin:
-              <code>20150001@aloe.ulima.edu.pe</code> / <code>Admin1234</code></p>
+              <code>20150001@aloe.ulima.edu.pe</code> / <code>Admin1234</code>
+            </p>
           </div>
         </div>
       </div>
@@ -510,6 +519,208 @@
         </div>
       </div>
     </section>
+
+    <!-- Apartado 2.3 : Nuevo aviso-->
+    <section id="nuevoAvisoView" class="view-section">
+      <div class="nuevo-aviso-contenedor">
+
+        <div class="breadcrumb">
+          <a onclick="showView('misPublicacionesView')">Mis publicaciones</a>
+          <span>›</span>
+          <span>Nuevo aviso</span>
+        </div>
+
+        <h1>Nuevo aviso</h1>
+
+        <div class="nuevo-aviso-grid">
+          <div class="nuevo-aviso-formulario">
+            <!-- 1. PRODUCTO -->
+            <div class="seccion-aviso">
+              <h2>1 · Producto</h2>
+
+              <div class="field">
+                <label>Título del aviso</label>
+                <input type="text" id="nuevoTitulo" value="Cálculo de una variable — Stewart, 8.ª ed.">
+
+                <span class="hint">
+                  Incluye autor y edición: así lo buscan tus compañeros.
+                  46/80 caracteres.
+                </span>
+              </div>
+
+              <div class="field">
+                <label>Descripción</label>
+
+                <textarea id="nuevoDescripcion">
+Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones a lápiz en los capítulos 3 y 4. Incluye el separador original.
+        </textarea>
+              </div>
+
+              <div class="fila-formulario">
+
+                <div class="field">
+                  <label>Categoría</label>
+
+                  <select id="nuevoCategoria">
+                    <option>Libros de texto</option>
+                    <option>Calculadoras</option>
+                    <option>Instrumentos de dibujo</option>
+                    <option>Apuntes y guías</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Curso asociado</label>
+
+                  <select id="nuevoCurso">
+                    <option>Cálculo I</option>
+                    <option>Física II</option>
+                    <option>Estadística Aplicada</option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 2. CONDICIÓN -->
+            <div class="seccion-aviso">
+              <h2>2 · Condición</h2>
+              <label>Estado del producto</label>
+
+              <div class="condiciones">
+                <button type="button" class="chip">Como nuevo</button>
+                <button type="button" class="chip chip-active">Muy buen estado</button>
+                <button type="button" class="chip">Buen estado</button>
+                <button type="button" class="chip">Con marcas de uso</button>
+              </div>
+
+              <p class="hint">
+                Sé honesto: la calificación después del acuerdo depende de esto.
+              </p>
+
+            </div>
+
+            <div class="columna-precio-fotos">
+              <!-- 3. PRECIO -->
+              <div class="seccion-aviso">
+
+                <h2>3 · Precio</h2>
+
+                <div class="field precio-field">
+                  <label>Precio pedido</label>
+
+                  <div class="input-precio">
+                    <span>S/</span>
+                    <input type="number" id="nuevoPrecio" value="95">
+                  </div>
+
+                  <span class="hint">
+                    Rango sugerido para este título: S/ 80 – S/ 110.
+                  </span>
+                </div>
+
+                <label class="switch-ofertas">
+                  <input type="checkbox" checked>
+                  <span class="slider-ofertas"></span>
+                  <span>Acepto ofertas por un monto menor</span>
+                </label>
+                <div class="field precio-field">
+                  <label>Monto mínimo que aceptarás</label>
+
+                  <div class="input-precio">
+                    <span>S/</span>
+                    <input type="number" id="nuevoMinimo" value="70">
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 4. FOTOGRAFÍAS -->
+              <div class="seccion-aviso">
+
+                <h2>4 · Fotografías</h2>
+
+                <div class="fotos-aviso">
+
+                  <div class="foto-principal">
+                    <span>Principal</span>
+                  </div>
+
+                  <div class="foto-secundaria"></div>
+
+                  <div class="foto-secundaria"></div>
+
+                  <button type="button" class="agregar-foto">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Agregar foto</span>
+                  </button>
+
+                </div>
+
+                <p class="hint">
+                  3 de 6 fotografías. Arrastra las miniaturas para reordenarlas.
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="nuevo-aviso-lateral">
+            <!-- Vista previa del recuadro-->
+            <div class="vista-previa-aviso">
+              <p class="eyebrow">
+                Vista previa de la tarjeta
+              </p>
+              <div class="preview-imagen">
+                <i class="fa-regular fa-image">
+
+                </i>
+              </div>
+              <h3>Cálculo de una variable - Stewart, 8. â ed.</h3>
+              <strong class="preview-precio">
+                S/ 95.00
+              </strong>
+
+              <p class="preview-meta">
+                Muy buen estado . Cálculo I
+              </p>
+            </div>
+            <!-- Consejo-->
+            <div class="antes-publicar">
+
+              <h3>Antes de publicar</h3>
+              <p>
+                Toma las fotos con luz natural, muestra la portada y el
+                estado real de las hojas. Un aviso con 3 fotografías recibe el doble de ofertas.
+
+              </p>
+            </div>
+
+            <!-- ACCIONES -->
+            <div class="acciones-nuevo-aviso">
+
+              <button class="btn btn-primary">
+                Publicar
+              </button>
+
+              <button class="btn btn-secondary">
+                Guardar borrador
+              </button>
+
+              <button class="btn btn-ghost" onclick="showView('misPublicacionesView')">
+                Cancelar
+              </button>
+
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </section>
+
+
 
   </main>
 

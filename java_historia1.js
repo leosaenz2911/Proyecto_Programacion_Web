@@ -1,12 +1,18 @@
 // ===== DATOS SIMULADOS (front) — en la 2.ª entrega pasan a la API/BD =====
 const USERS_KEY = 'tablon_users', SESSION_KEY = 'tablon_session';
 const SEED_USERS = [
-  { id: 'USR-001', nombres: 'Rosa María', apellidos: 'Quispe Ríos', correo: '20201234@aloe.ulima.edu.pe', password: 'Rosa1234',
-    carrera: 'Administración', ciclo: 'Cuarto', telefono: '987 654 321', puntoEncuentroPreferido: 'Biblioteca', rol: 'USUARIO', bloqueado: false },
-  { id: 'USR-900', nombres: 'Julio', apellidos: 'Mendoza', correo: '20150001@aloe.ulima.edu.pe', password: 'Admin1234',
-    carrera: 'Ingeniería de Sistemas', ciclo: 'Décimo', telefono: '', puntoEncuentroPreferido: 'Biblioteca', rol: 'ADMINISTRADOR', bloqueado: false },
-  { id: 'USR-050', nombres: 'Marco Antonio', apellidos: 'Loayza Pinto', correo: '20189922@aloe.ulima.edu.pe', password: 'Marco1234',
-    carrera: 'Comunicación', ciclo: 'Octavo', telefono: '', puntoEncuentroPreferido: 'Puerta 1', rol: 'USUARIO', bloqueado: true }
+  {
+    id: 'USR-001', nombres: 'Rosa María', apellidos: 'Quispe Ríos', correo: '20201234@aloe.ulima.edu.pe', password: 'Rosa1234',
+    carrera: 'Administración', ciclo: 'Cuarto', telefono: '987 654 321', puntoEncuentroPreferido: 'Biblioteca', rol: 'USUARIO', bloqueado: false
+  },
+  {
+    id: 'USR-900', nombres: 'Julio', apellidos: 'Mendoza', correo: '20150001@aloe.ulima.edu.pe', password: 'Admin1234',
+    carrera: 'Ingeniería de Sistemas', ciclo: 'Décimo', telefono: '', puntoEncuentroPreferido: 'Biblioteca', rol: 'ADMINISTRADOR', bloqueado: false
+  },
+  {
+    id: 'USR-050', nombres: 'Marco Antonio', apellidos: 'Loayza Pinto', correo: '20189922@aloe.ulima.edu.pe', password: 'Marco1234',
+    carrera: 'Comunicación', ciclo: 'Octavo', telefono: '', puntoEncuentroPreferido: 'Puerta 1', rol: 'USUARIO', bloqueado: true
+  }
 ];
 
 const state = { currentUser: null, pendingView: null, recoveryEmail: null };
@@ -402,7 +408,28 @@ function aplicarFiltroPublicaciones() {
 
 }
 
+// Funcion para el boton de nuevo aviso
+function abrirNuevoAviso(){
+  showView('nuevoAvisoView');
+}
 
+function actualizarBotonPublicarAviso() {
+  const boton = document.getElementById('btnPublicarAvisoSebas')
+
+  if(!boton) return;
+
+  if(state.currentUser && state.currentUser.rol === 'USUARIO'){
+    boton.style.display = 'infline-flex';
+  }else {
+
+    boton.style.display= 'none';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    actualizarBotonPublicarAviso();
+  });
+
+
+}
 
 
 

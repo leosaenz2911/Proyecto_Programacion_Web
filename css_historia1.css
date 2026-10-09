@@ -353,6 +353,7 @@ select.is-invalid {
   gap: 20px
 }
 
+/*
 .check-label {
   display: flex;
   gap: 10px;
@@ -363,6 +364,72 @@ select.is-invalid {
   font-weight: 600;
   color: var(--ink)
 }
+*/
+
+/*Boton de ofertas */
+.switch-ofertas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.switch-ofertas input {
+  display: none;
+}
+
+.slider-ofertas {
+  width: 38px;
+  height: 22px;
+
+  position: relative;
+
+  background-color: var(--border);
+  border-radius: 999px;
+
+  flex-shrink: 0;
+}
+
+.slider-ofertas::before {
+  content: "";
+
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+
+  top: 3px;
+  left: 3px;
+
+  background-color: white;
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.switch-ofertas input:checked+.slider-ofertas {
+  background-color: var(--terracota);
+}
+
+.switch-ofertas input:checked+.slider-ofertas::before {
+  transform: translateX(16px);
+}
+
+
+
+
+
+
+
+
 
 .pass-wrap {
   position: relative
@@ -943,119 +1010,164 @@ footer a {
 
 /* Tabla de publicacones : Para ajustar y centrar */
 #misPubliacionesView {
-  width : 100%;
-  max-width: 95vw;
-  margin : 2rem auto;
-  background-color : yellow;
+  width: 100%;
+  max-width: 1160px;
+  margin: 2rem auto;
+  padding: 0 32px;
 }
+
+/* Para la foto del producto*/
+.foto-para-imagen {
+  width: 64px;
+  height: 64px;
+
+  background-color: var(--neutral);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  flex-shrink: 0;
+}
+
+/* Para el texto "sin foto */
+.foto-vacia:after {
+  content: "sin foto";
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+
+
 
 /* Para titulo y boton (Orden) */
 .page-header {
-  display : flex;  /* Con flex colocamos los elementos en una fila y con between a cada extremo*/
-  justify-content : space-between;
-  align-items : center;
-  margin-bottom : 1.5rem;
+  width: 88%;
+  margin: 2rem auto 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Para el titulo */
 .page-header h2 {
-  font-size : 1.75rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  color : black;
+  color: black;
 }
+
 .Subtitulo {
-  margin-top : 0.25rem;
-  font-size : 0.9rem;
-  color : var(--text-muted);
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 /* Para el boton de aviso*/
 .Boton-PrimarioBiblioteca {
-  display : inline-block;
+  display: inline-block;
   align-items: center;
-  gap : 0.5rem;
+  justify-content: center;
 
-  padding : 0.7rem 1.1 rem;
-  background-color : #C1562E;
+  gap: 0.45rem;
+
+  padding: 0.10rem 0.10rem;
+
+  background-color: var(--terracota);
   color: white;
 
-  font-weight : 700;
-  cursor : pointer;
+  font-size: 20px;
+  /*Que tan grande es el cuadro*/
+  font-weight: 700;
 
-  border : none;
-  border-radius : 8px;
+  border: none;
+  border-radius: 8px;
 }
 
-.filter-bar {
-  display : flex;
-  justify-content : space-between;
-  align-items : center;
+.Boton-PrimarioBiblioteca i {
+  font-size: 10px;
+}
 
-  gap : 1rem; /* Genera una brecha exclusiva entre los elementos*/
-  margin-bottom : 1rem;
+
+
+.filter-bar {
+  width: 90%;
+  margin: 0 auto 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* Para los filtros uno al lado del otro y luego dar su estilo*/
 .chip-group {
-  display : flex;
-  align-items : center;
-  gap : 0.5rem;
-  flex-wrap : wrap; /* Permite bajar a algunos elementos si ocupan todo el espacio */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  /* Permite bajar a algunos elementos si ocupan todo el espacio */
 }
 
 .chip {
-  padding : 0.45rem 0.9rem;
+  padding: 0.45rem 0.9rem;
 
-  background-color : white;
-  color : black;
+  background-color: white;
+  color: black;
 
-  border : 1px solid gray;
-  border-radius : 999px; /*para el rendondeado de border */
+  border: 1px solid gray;
+  border-radius: 999px;
+  /*para el rendondeado de border */
 
-  font-size : 0.82rem;
-  font-weight : 600;
+  font-size: 0.82rem;
+  font-weight: 600;
 
-  cursor : pointer;
+  cursor: pointer;
 }
 
 .chip-active {
-  background-color : #C1562E;
-  color : white;
+  background-color: #C1562E;
+  color: white;
 }
 
 
 /* Apartado de buscador*/
 
 .search-inline {
-  position : relative;
-  width : 260px;
+  position: relative;
+  width: 260px;
 }
 
 .search-inline input {
-  width : 100%;
+  width: 100%;
 
-  padding : 0.55rem 0.8rem; 
-  padding-left : 10px;
+  padding: 0.55rem 0.8rem;
+  padding-left: 10px;
 
-  border : 1px solid var(--border);
-  border-radius : 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 
-  background-color : white;
-  font-size : 0.75rem;
+  background-color: white;
+  font-size: 0.75rem;
 }
 
 /* TABLA PRINCIPAL DE COMPRAS*/
 
 .tabla-avisos {
-  width : 100%;
-  border-collapse : collapse;
-  background-color : white;
-
-  border : 1px solid var(--border);
-  border-radius : 8px;
-
-
-  overflow: hidden; /*Para que el contenido no salga del borde */
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  /*Para que el contenido no salga del borde */
 }
 
 /* Encabezado de la tabla*/
@@ -1066,29 +1178,29 @@ footer a {
 
 
 .tabla-avisos th {
-  padding : 0.75rem 0.8rem;
+  padding: 0.75rem 0.8rem;
 
-  text-align : left;
+  text-align: left;
 
-  font-size : 0.72rem;
-  font-weight : 700;
+  font-size: 0.72rem;
+  font-weight: 700;
 
-  color : var(--text-muted);
+  color: var(--text-muted);
 
-  text-transform :uppercase;
+  text-transform: uppercase;
 
-  border-bottom : 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 /* Filas de la tabla*/
 .tabla-avisos td {
-  padding : 0.8rem ;
+  padding: 0.8rem;
 
-  vertical-align : middle;
+  vertical-align: middle;
 
-  border-bottom : 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 
-  font-size : 0.75rem;
+  font-size: 0.75rem;
 }
 
 .tabla-avisos tbody tr:last-child td {
@@ -1102,65 +1214,644 @@ footer a {
 /* Parte de paginación*/
 
 .paginacion {
-  display : flex; 
-  align-items : center;
-  margin-top : 1rem;
-  font-size : 0.8rem;
-  gap : 10px;
+  width: 90%;
+  margin: 1rem auto 0;
 
+  display: flex;
+  gap: 10px;
+  color: var(--muted)
 }
 
 /* Boton central , de izquierda y derecha*/
 
 .Botones-paginacion {
-  display : flex;
-  align-items : center;
-  gap : 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .bton-pagina {
-  width : 32px;
-  height : 32px;
+  width: 32px;
+  height: 32px;
 
-  display : flex;
-  align-items : center;
-  justify-content : center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border : 1px solid var(--border);
-  border-radius : 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 
-  background-color : white;
-  color : black;
+  background-color: white;
+  color: black;
 
-  cursor : pointer;
+  cursor: pointer;
 
 }
 
 .bton-central-pagina {
-  width : 32px;
-  height : 32px;
+  width: 32px;
+  height: 32px;
 
-  display : flex;
-  align-items : center;
-  justify-content : center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border : 1px solid var(--border);
-  border-radius : 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 
-  background-color : #C1562E;
-  color : white;
+  background-color: #C1562E;
+  color: white;
 
-  cursor : pointer ;
+  cursor: pointer;
+}
+
+/*INFORMACION DE LA TABLA Y CONTENIDO ADICIONAL */
+.Titulo-aviso,
+.Titulo-aviso-alternativo {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+/* Información debajo del título */
+.aviso-meta {
+  display: block;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  color: var(--muted);
+}
+
+/* Precio*/
+.celda-precio {
+  font-size: 15px !important;
+  font-weight: 700;
+  white-space: nowrap;
+
+  color: var(--ink);
+}
+
+/* Colores de estado*/
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* Publicado */
+
+.publicado-azul {
+  background-color: #E5EDF6;
+  color: var(--info);
+}
+
+/* Pausado */
+.publicado-yellow {
+  background-color: #FFF3D6;
+  color: var(--warn);
+}
+
+/* Borrador */
+.publicado-borrador {
+  background-color: var(--neutral);
+  color: var(--muted);
+}
+
+/* Vendido */
+.publicado-verde {
+  background-color: #E6F4EA;
+  color: var(--ok);
+}
+
+/* Ofertas */
+
+.celda-ofertas-datos-incluidos {
+  color: var(--terracota);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.celda-ofertas {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Fecha */
+.Celda-Fecha {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Para el boton de acciones*/
+.Boton-para-acciones-tabla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  height: 34px;
+  padding: 0 12px;
+
+  background-color: white;
+  color: var(--terracota);
+
+  border: 1px solid var(--terracota);
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.Boton-para-acciones-tabla:hover {
+  background-color: var(--terracota-soft);
+}
+
+.fila-resaltada {
+  background-color: #FFFCF5;
+}
+
+/* Buscador*/
+.search-inline i {
+  position: absolute;
+
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  color: var(--muted);
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+.search-inline input {
+  padding-left: 35px;
+}
+
+/* Estado vacio*/
+.estado-vacio {
+  max-width: 520px;
+
+  margin: 48px auto;
+  padding: 32px;
+
+  text-align: center;
+}
+
+.estado-vacio-icono {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: var(--terracota-soft);
+  color: var(--terracota);
+
+  font-size: 24px;
+}
+
+.estado-vacio h3 {
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.estado-vacio .subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* Apartado 2.3 : Nuevo aviso--> */
+
+/*Avisos y botones */
+
+#nuevoAvisoView {
+  width: 100%;
+}
+
+.nuevo-aviso-contenedor {
+  width: 95%;
+  max-width: 1400px;
+  margin: 2rem auto 3rem;
+}
+
+.nuevo-aviso-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 380px;
+
+  gap: 24px;
+  row-gap: 16px;
+  align-items: stretch;
+}
+
+.nuevo-aviso-formulario {
+  display: contents;
+}
+
+.nuevo-aviso-lateral {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  align-self: start;
+
+}
+
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 12px;
+
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.breadcrumb a {
+  color: var(--terracota);
+  font-weight: 600;
+}
+
+#nuevoAvisoView h1 {
+  margin-bottom: 20px;
+}
+
+.seccion-aviso {
+  width: 100%;
+  background-color: white;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.seccion-aviso h2 {
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: var(--terracota);
+  font-weight: 800;
+}
+
+/*Campo de categoria y curso*/
+
+.fila-formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  width: 100%;
+}
+
+.fila-formulario .field {
+  width: 100%;
+}
+
+.fila-formulario select {
+  width: 100%;
+  padding: 0 12px;
+
+  font-size: 14px;
+  color: var(--ink);
+}
+
+
+/*Para la descricion */
+textarea {
+  width: 100%;
+  min-height: 90px;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+
+  font-size: 15px;
+}
+
+/*Para los botonoes */
+.condiciones {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+  margin: 10px 0;
+
+}
+
+/*Para los estilos de precio*/
+
+.precio-field {
+  width: 100%;
+}
+
+.precio-field:last-child {
+  margin-top: 15px;
+}
+
+.input-precio {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  height: 40px;
+
+  background-color: white;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  overflow: hidden;
+}
+
+.input-precio span {
+  padding-left: 12px;
+
+  font-weight: 700;
+  color: --var(--ink);
+
+}
+
+.input-precio input {
+  border: none;
+  box-shadow: none;
+
+  padding-left: 6px;
+}
+/*Para la parte de fotografia , ajuste de ancho y largo en los paneles*/
+.fotos-aviso {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.foto-principal,
+.foto-secundaria,
+.agregar-foto {
+  width: 100%;
+  height: 150px;
+
+  border-radius: 6px;
+}
+/* Cuadros de foto */
+.foto-principal,
+.foto-secundaria {
+  position: relative;
+  
+  border: 1px solid var(--border);
 }
 
 
 
+.foto-principal {
+  width: 220px;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  background-color: var(--neutral);
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.foto-principal span {
+  position: absolute;
+
+  top: 7px;
+  left: 7px;
+
+  padding: 2px 8px;
+
+  background-color: var(--terracota);
+  color: white;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.agregar-foto {
+  width: 100%;
+  height: 100%;
+
+  min-height: 125px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  background-color: var(--terracota-soft);
+  color: var(--terracota);
+
+  border: 1px dashed var(--terracota);
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.columna-precio-fotos {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  height: 100%;
+}
+
+.columna-precio-fotos .seccion-aviso:last-child {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
 
 
+/*Botones inferiores */
+
+.acciones-nuevo-aviso {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 14px;
 
 
+  margin-top: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background-color: white;
+  margin-top: 12px;
+
+}
+
+.acciones-nuevo-aviso .btn {
+  width: 100%;
+}
+
+/* Estilos de vista previa */
+
+.vista-previa-aviso {
+  width: 100%;
+  background-color: white;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  padding: 18px;
+
+  margin-top: 0;
+
+  box-shadow: var(--shadow);
+}
+
+.preview-imagen {
+  height: 250px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 12px 0;
+
+  background-color: var(--neutral);
+
+  border-radius: 8px;
+
+  color: var(--muted);
+
+  font-size: 30px;
+}
+
+.vista-previa-aviso h3 {
+  font-size: 15px;
+  line-height: 20px;
+
+  margin-bottom: 6px;
+}
+
+.preview-precio {
+  display: block;
+
+  font-size: 18px;
+
+  margin-bottom: 4px;
+}
+
+.preview-meta {
+  font-size: 12px;
+
+  color: var(--muted);
+}
+
+/*Estilos antes de publicar */
+
+.antes-publicar {
+  padding: 18px;
+
+  margin-top: 16px;
+
+  background-color: var(--terracota-soft);
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.antes-publicar h3 {
+  font-size: 15px;
+
+  margin-bottom: 8px;
+}
+
+.antes-publicar p {
+  font-size: 13px;
+  line-height: 18px;
+
+  color: var(--muted);
+
+  margin-bottom: 8px;
+}
 
 
+/*Generar las columnas para la grid principal */
+
+.nuevo-aviso-formulario {
+  display: contents;
+}
+
+.nuevo-aviso-fourmulario .seccion-aviso:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+
+}
+
+.nuevo-aviso-formulario .seccion-aviso:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
 
 
+/* 3 · Precio */
+.nuevo-aviso-formulario .seccion-aviso:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1;
+}
 
+
+/* 4 · Fotografías */
+.nuevo-aviso-formulario .seccion-aviso:nth-child(4) {
+  grid-column: 2;
+  grid-row: 2;
+  height: 100%;
+}
