@@ -150,3 +150,11 @@ footer div{display:flex;gap:28px}footer a{font-weight:700}
   .recent,.steps3{grid-template-columns:1fr}.hero h1{font-size:32px;line-height:38px}
   .topbar-main,.tabs{padding:0 16px;overflow-x:auto}.wrap{padding:0 16px}
 }
+
+.avatar-edit { position: relative; cursor: pointer; overflow: hidden; }
+.avatar-edit .avatar-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.45); color: #fff; font-size: 1.4rem; opacity: 0; transition: opacity .2s;
+}
+.avatar-edit:hover .avatar-overlay, .avatar-edit:focus .avatar-overlay { opacity: 1; }
+.avatar.has-photo, .avatar-sm.has-photo { background-size: cover; background-position: center; color: transparent; }

@@ -246,9 +246,75 @@ function updateUI() {
   $('navPublic').style.display = user ? 'none' : '';
   $('navSearch').style.display = user && user.rol === 'USUARIO' ? 'block' : 'none';
   if (user) {
-    $('navAvatar').textContent = (user.nombres[0] + user.apellidos[0]).toUpperCase();
     $('navUserName').textContent = user.nombres.split(' ')[0] + ' ' + user.apellidos.split(' ')[0];
+    renderAvatars();
   }
+}
+
+// ===== FOTO DE PERFIL =====
+const MAX_AVATAR_MB = 2;
+
+function paintAvatar(el, user, textEl) {
+  const target = textEl || el;
+  if (user.foto) {
+    el.style.backgroundImage = `url(${user.foto})`;
+    el.classList.add('has-photo');
+    target.textContent = '';
+  } else {
+    el.style.backgroundImage = '';
+    el.classList.remove('has-photo');
+    target.textContent = (user.nombres[0] + user.apellidos[0]).toUpperCase();
+  }
+}
+
+function renderAvatars() {
+  const u = state.currentUser;
+  if (!u) return;
+  paintAvatar($('profileAvatar'), u, $('profileAvatarText'));
+  paintAvatar($('navAvatar'), u);
+  $('avatarRemoveBtn').style.display = u.foto ? 'inline-flex' : 'none';
+}
+
+function handleAvatarChange(e) {
+  const file = e.target.files[0];
+  e.target.value = '';                       // permite volver a elegir el mismo archivo
+  if (!file) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
+    return showToast('Elige una imagen PNG, JPG o WEBP.', 'error');
+  }
+  if (file.size > MAX_AVATAR_MB * 1024 * 1024) {
+    return showToast(`La imagen no debe superar ${MAX_AVATAR_MB} MB.`, 'error');
+  }
+  const reader = new FileReader();
+  reader.onload = () => resizeImage(reader.result, 256, dataUrl => {
+    const u = state.currentUser;
+    u.foto = dataUrl;
+    persistUser(u);
+    renderAvatars();
+    showToast('Foto de perfil actualizada.');
+  });
+  reader.readAsDataURL(file);
+}
+
+// Recorta la imagen a un cuadrado y la reduce, para no llenar el límite de localStorage
+function resizeImage(src, size, cb) {
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const s = Math.min(img.width, img.height);
+    canvas.getContext('2d').drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+    cb(canvas.toDataURL('image/jpeg', 0.85));
+  };
+  img.src = src;
+}
+
+function removeAvatar() {
+  const u = state.currentUser;
+  delete u.foto;
+  persistUser(u);
+  renderAvatars();
+  showToast('Foto eliminada.');
 }
 
 // ===== MI CUENTA =====
@@ -257,7 +323,6 @@ function fillProfile() {
   if (!u) return;
   clearErrors('profileView');
   $('profileName').textContent = `${u.nombres} ${u.apellidos}`;
-  $('profileAvatar').textContent = (u.nombres[0] + u.apellidos[0]).toUpperCase();
   $('profileDetail').textContent = `${u.nombres} ${u.apellidos} · ${u.carrera}, ${u.ciclo.toLowerCase()} ciclo`;
   $('profileNombres').value = u.nombres;
   $('profileApellidos').value = u.apellidos;
@@ -265,6 +330,7 @@ function fillProfile() {
   $('profilePhone').value = u.telefono;
   setLocation(u.puntoEncuentroPreferido);
   $('passwordForm').reset();
+  renderAvatars();
 }
 
 function handleUpdateProfile(e) {
@@ -281,6 +347,7 @@ function handleUpdateProfile(e) {
   u.puntoEncuentroPreferido = $('profileLocation').value;
   persistUser(u);
   fillProfile();
+  updateUI();
   showToast('Los cambios de tu cuenta se guardaron correctamente.');
 }
 
