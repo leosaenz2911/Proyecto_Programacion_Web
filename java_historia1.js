@@ -427,19 +427,332 @@ function actualizarBotonPublicarAviso() {
   document.addEventListener('DOMContentLoaded', () => {
     actualizarBotonPublicarAviso();
   });
+}
 
+function validarPublicacion() {
 
+  const titulo = document.getElementById('nuevoTitulo').value.trim();
+  const descripcion = document.getElementById('nuevoDescripcion').value.trim();
+  const categoria = document.getElementById('nuevoCategoria').value;
+  const curso = document.getElementById('nuevoCurso').value;
+  const precio = document.getElementById('nuevoPrecio').value;
+  const minimo = document.getElementById('nuevoMinimo').value;
+
+  const condicionSeleccionada =
+    document.querySelector('.condiciones .chip-active');
+
+  const alerta =
+    document.getElementById('errorPublicarAviso');
+
+  /* Verifica si falta algún campo */
+  const hayError =
+    titulo === '' ||
+    descripcion === '' ||
+    categoria === '' ||
+    curso === '' ||
+    precio === '' ||
+    minimo === '' ||
+    !condicionSeleccionada;
+
+  if (hayError) {
+    alerta.style.display = 'block';
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  } else {
+    alerta.style.display = 'none';
+    alert('El aviso puede publicarse');
+  }
 }
 
 
+/*PARTE 2.5 : PUBLICACIONES : SEBASTIAM SOLORZANO */
+// CARGA DE FOTOGRAFIAS //
+
+const FOTOS_MAX = 6;                              // máximo de imágenes
+const FOTOS_MAX_BYTES = 5 * 1024 * 1024;          // 5 MB por imagen
+const FOTOS_TIPOS = ['image/jpeg', 'image/png'];  // solo JPG y PNG
+const MODO_DEMO = true;
 
 
+/*Estado . Las fotos es un objeto que posee : { id ,nombre , estado , progreso , mensajeError}*/
 
+//estado puede ser: 'ok' | 'subiendo' | 'error'
 
-
-
-
-
+let fotosAviso = [];
+let fotoArrastradaId = null;      // id de la miniatura que se está reordenando
+let fotoSeq = 0;                  // contador para generar ids únicos
+const temporizadoresFotos = {};   // un setInterval por cada foto que está subiendo
+ 
+const nuevoIdFoto = () => 'foto-' + (++fotoSeq);
+ 
+// Las fotos "activas" son las que ocupan un cupo de las 6 (las fallidas no cuentan)
+const fotosActivas = () => fotosAviso.filter(f => f.estado !== 'error');
+ 
+// Evita que un nombre de archivo con < > se interprete como HTML
+const escaparHTML = t => t.replace(/[&<>"']/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+ 
+/* ---------- 3. VALIDACIÓN DE CADA ARCHIVO ---------- */
+// Devuelve el texto del error, o '' si el archivo es válido
+function validarArchivoFoto(archivo) {
+  if (!FOTOS_TIPOS.includes(archivo.type)) return 'Solo se admiten imágenes JPG o PNG';
+  if (archivo.size > FOTOS_MAX_BYTES) return 'La imagen supera 5 MB';
+  return '';
+}
+ 
+/* ---------- 4. RECIBIR ARCHIVOS (por clic o por arrastre) ---------- */
+function procesarArchivos(lista) {
+  let huboError = false, limite = false;
+ 
+  Array.from(lista).forEach(archivo => {
+    const foto = {
+      id: nuevoIdFoto(),
+      nombre: archivo.name.replace(/\.[^.]+$/, ''),   // nombre sin extensión
+      src: null, progreso: 0
+    };
+ 
+    const motivo = validarArchivoFoto(archivo);
+    if (motivo) {                                      // archivo inválido -> tarjeta roja
+      foto.estado = 'error';
+      foto.mensajeError = motivo;
+      fotosAviso.push(foto);
+      huboError = true;
+      return;
+    }
+    if (fotosActivas().length >= FOTOS_MAX) { limite = true; return; }
+ 
+    foto.src = URL.createObjectURL(archivo);           // URL temporal para previsualizar la imagen
+    foto.estado = 'subiendo';
+    fotosAviso.push(foto);
+    simularSubida(foto);
+  });
+ 
+  if (huboError) showToast('Error. Una imagen no se pudo subir. Revísala e inténtalo otra vez.', 'error');
+  if (limite) showToast('Límite alcanzado. Ya tienes 6 de 6 fotografías; elimina una para agregar otra.', 'info');
+  renderFotos();
+}
+ 
+/* ---------- 5. SIMULAR LA SUBIDA (en la 2.ª entrega será la API real) ---------- */
+function simularSubida(foto) {
+  clearInterval(temporizadoresFotos[foto.id]);
+  temporizadoresFotos[foto.id] = setInterval(() => {
+    foto.progreso = Math.min(100, foto.progreso + 6 + Math.random() * 10);
+    if (foto.progreso >= 100) {
+      clearInterval(temporizadoresFotos[foto.id]);
+      foto.estado = 'ok';
+      renderFotos();                      // al terminar sí redibujamos todo
+    } else {
+      actualizarProgreso(foto);           // mientras sube solo tocamos la barra (sin parpadeo)
+    }
+  }, 150);
+}
+ 
+function actualizarProgreso(foto) {
+  const tile = document.querySelector(`[data-id="${foto.id}"]`);
+  if (!tile) return;
+  tile.querySelector('.barra-progreso span').style.width = foto.progreso + '%';
+  tile.querySelector('.subida-texto').textContent = `Subiendo ${Math.round(foto.progreso)} %`;
+}
+ 
+/* ---------- 6. DIBUJAR LAS MINIATURAS ---------- */
+function htmlTile(foto, esPrincipal) {
+  // a) Subiendo -> barra de progreso
+  if (foto.estado === 'subiendo') {
+    return `<div class="foto-tile subiendo" data-id="${foto.id}">
+      <div class="barra-progreso"><span style="width:${foto.progreso}%"></span></div>
+      <p class="subida-texto">Subiendo ${Math.round(foto.progreso)} %</p>
+    </div>`;
+  }
+  // b) Error -> tarjeta roja con "Reintentar"
+  if (foto.estado === 'error') {
+    return `<div class="foto-tile fallida" data-id="${foto.id}">
+      <span class="fallida-titulo">No se pudo subir</span>
+      <span class="fallida-detalle">${escaparHTML(foto.mensajeError)}</span>
+      <button type="button" class="fallida-reintentar" onclick="reintentarFoto('${foto.id}')">Reintentar</button>
+    </div>`;
+  }
+  // c) OK -> miniatura (imagen real o rayas si es de demostración)
+  const contenido = foto.src
+    ? `<img src="${foto.src}" alt="${escaparHTML(foto.nombre)}">`
+    : `<span class="foto-caption">${escaparHTML(foto.nombre)}</span>`;
+  const accion = esPrincipal
+    ? `<span class="foto-badge">Principal</span>`
+    : `<button type="button" class="foto-hacer-principal" onclick="hacerPrincipal('${foto.id}')">Hacer principal</button>`;
+  return `<div class="foto-tile ok${esPrincipal ? ' principal' : ''}" data-id="${foto.id}" draggable="true">
+    ${contenido}${accion}
+    <button type="button" class="foto-quitar" aria-label="Quitar fotografía" onclick="quitarFoto('${foto.id}')"><i class="fa-solid fa-xmark"></i></button>
+  </div>`;
+}
+ 
+function renderFotos() {
+  const primeraOk = fotosAviso.find(f => f.estado === 'ok');   // la primera "ok" es la portada
+  const activas = fotosActivas().length;
+ 
+  const tiles = fotosAviso.map(f => htmlTile(f, f === primeraOk)).join('');
+  const botonAgregar = activas < FOTOS_MAX
+    ? `<button type="button" class="foto-tile agregar" onclick="$('inputFotos').click()">
+         <i class="fa-solid fa-plus"></i><span>Agregar</span></button>`
+    : '';                                                       // con 6 fotos ya no se muestra
+ 
+  $('fotosGrid').innerHTML = tiles + botonAgregar;
+  $('fotosContador').textContent = `${activas} de ${FOTOS_MAX} fotografías`;
+}
+ 
+/* ---------- 7. ACCIONES SOBRE UNA MINIATURA ---------- */
+function quitarFoto(id) {
+  clearInterval(temporizadoresFotos[id]);
+  fotosAviso = fotosAviso.filter(f => f.id !== id);
+  renderFotos();
+}
+ 
+function hacerPrincipal(id) {
+  const i = fotosAviso.findIndex(f => f.id === id);
+  const [foto] = fotosAviso.splice(i, 1);
+  fotosAviso.unshift(foto);               // pasar al inicio = pasar a ser la portada
+  renderFotos();
+}
+ 
+function reintentarFoto(id) {
+  quitarFoto(id);                         // se descarta la fallida...
+  $('inputFotos').click();                // ...y se abre el selector para elegir otra
+}
+ 
+/* ---------- 8. REORDENAR ARRASTRANDO (HTML5 drag & drop) ---------- */
+function limpiarIndicadoresDrop() {
+  document.querySelectorAll('.drop-antes, .drop-despues')
+    .forEach(t => t.classList.remove('drop-antes', 'drop-despues'));
+}
+ 
+// ¿el cursor está en la mitad izquierda o derecha de la miniatura?
+const cursorDespues = (e, tile) => {
+  const r = tile.getBoundingClientRect();
+  return e.clientX > r.left + r.width / 2;
+};
+ 
+function iniciarArrastreMiniaturas() {
+  const grid = $('fotosGrid');
+ 
+  grid.addEventListener('dragstart', e => {
+    const tile = e.target.closest('.foto-tile.ok');
+    if (!tile) return;
+    fotoArrastradaId = tile.dataset.id;
+    tile.classList.add('arrastrada');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', fotoArrastradaId);   // Firefox lo exige
+    $('panelReorden').classList.add('activo');
+  });
+ 
+  grid.addEventListener('dragover', e => {
+    const tile = e.target.closest('.foto-tile.ok');
+    if (!fotoArrastradaId || !tile || tile.dataset.id === fotoArrastradaId) return;
+    e.preventDefault();                                       // permite soltar aquí
+    limpiarIndicadoresDrop();
+    tile.classList.add(cursorDespues(e, tile) ? 'drop-despues' : 'drop-antes');   // barra terracota
+  });
+ 
+  grid.addEventListener('drop', e => {
+    const tile = e.target.closest('.foto-tile.ok');
+    if (!fotoArrastradaId || !tile || tile.dataset.id === fotoArrastradaId) return;
+    e.preventDefault();
+ 
+    const desde = fotosAviso.findIndex(f => f.id === fotoArrastradaId);
+    const [movida] = fotosAviso.splice(desde, 1);                       // 1) la saco de su lugar
+    let hasta = fotosAviso.findIndex(f => f.id === tile.dataset.id);    // 2) busco el destino
+    if (cursorDespues(e, tile)) hasta++;
+    fotosAviso.splice(hasta, 0, movida);                                // 3) la inserto
+    renderFotos();
+  });
+ 
+  grid.addEventListener('dragend', () => {
+    fotoArrastradaId = null;
+    limpiarIndicadoresDrop();
+    $('panelReorden').classList.remove('activo');
+    document.querySelectorAll('.arrastrada').forEach(t => t.classList.remove('arrastrada'));
+  });
+}
+ 
+/* ---------- 9. ZONA DE ARRASTRE PARA ARCHIVOS ---------- */
+function iniciarDropzone() {
+  const zona = $('dropzoneFotos'), input = $('inputFotos');
+  const esArchivo = e => e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files');
+ 
+  zona.addEventListener('click', () => input.click());
+  zona.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+  });
+ 
+  ['dragenter', 'dragover'].forEach(ev => zona.addEventListener(ev, e => {
+    if (!esArchivo(e)) return;
+    e.preventDefault();
+    zona.classList.add('arrastrando');
+  }));
+  zona.addEventListener('dragleave', () => zona.classList.remove('arrastrando'));
+  zona.addEventListener('drop', e => {
+    if (!esArchivo(e)) return;
+    e.preventDefault();
+    zona.classList.remove('arrastrando');
+    procesarArchivos(e.dataTransfer.files);
+  });
+ 
+  input.addEventListener('change', () => {
+    procesarArchivos(input.files);
+    input.value = '';        // permite volver a elegir el mismo archivo
+  });
+}
+ 
+/* ---------- 10. GUARDAR / CANCELAR ---------- */
+function guardarFotos() {
+  // las subidas reales deben terminar (la miniatura "pausada" de la demo no cuenta)
+  if (fotosAviso.some(f => f.estado === 'subiendo' && !f.pausada)) {
+    showToast('Espera a que terminen las subidas.', 'info');
+    return;
+  }
+  const listas = fotosAviso.filter(f => f.estado === 'ok');
+  if (!listas.length) {
+    showToast('Error. Necesitas al menos una fotografía para guardar.', 'error');
+    return;
+  }
+  state.fotosAviso = listas.map(f => ({ nombre: f.nombre, src: f.src }));   // se guarda en el estado global
+  sincronizarFotosNuevoAviso();
+  showToast(`Éxito. Se guardaron ${listas.length} fotografía${listas.length > 1 ? 's' : ''}. La primera será la portada del aviso.`);
+  showView('nuevoAvisoView');
+}
+ 
+function cancelarFotos() {
+  showView('nuevoAvisoView');
+}
+ 
+// Refleja la portada en la "Vista previa de la tarjeta" de la 2.3
+function sincronizarFotosNuevoAviso() {
+  const prev = document.querySelector('.preview-imagen');
+  const portada = (state.fotosAviso || []).find(f => f.src);
+  if (!prev || !portada) return;
+  prev.classList.add('con-foto');
+  prev.style.backgroundImage = `url(${portada.src})`;
+  prev.style.backgroundSize = 'cover';
+  prev.style.backgroundPosition = 'center';
+}
+ 
+/* ---------- 11. ARRANQUE ---------- */
+function cargarFotosDemo() {
+  fotosAviso = [
+    { id: nuevoIdFoto(), nombre: 'portada', src: null, estado: 'ok' },
+    { id: nuevoIdFoto(), nombre: 'lomo', src: null, estado: 'ok' },
+    { id: nuevoIdFoto(), nombre: 'hojas interiores', src: null, estado: 'ok' },
+    { id: nuevoIdFoto(), nombre: 'foto 4', src: null, estado: 'subiendo', progreso: 62, pausada: true },
+    { id: nuevoIdFoto(), nombre: 'foto 5', estado: 'error', mensajeError: 'La imagen supera 5 MB' }
+  ];
+}
+ 
+document.addEventListener('DOMContentLoaded', () => {
+  if (MODO_DEMO) cargarFotosDemo();
+  iniciarDropzone();
+  iniciarArrastreMiniaturas();
+  renderFotos();
+});
 
 
 

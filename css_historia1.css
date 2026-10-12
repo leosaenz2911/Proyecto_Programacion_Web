@@ -1855,3 +1855,470 @@ textarea {
   grid-row: 2;
   height: 100%;
 }
+
+/*Boton de publicar aviso */
+.btn-publicar-sebas {
+  height: 36px;
+  padding: 0 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--terracota);
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.btn-publicar-sebas:hover {
+  background-color: var(--terracota-dark);
+}
+
+/*PARTE 2.4 : ERROR DE VALIDACION */
+.alerta-publicacion-error {
+  display: none;
+
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+
+  background-color: #F7E6E5;
+  color: var(--err);
+
+  border: 1px solid var(--err);
+  border-radius: 8px;
+
+  box-shadow: 0 2px 8px rgba(180,50,43,0.12);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.campo-error {
+  border-color: var(--err) !important;
+  box-shadow: 0 0 0 2px rgba(180, 50, 43, 0.12);
+}
+.mensaje-campo-error {
+  display: none;
+  margin-top: 4px;
+
+  font-size: 13px;
+  color: var(--err);
+  line-height: 18px;
+}
+
+/*PARTE 2.5 : CARGA DE FOTOGRAFIAS */
+
+
+#fotosAvisoView h1 {
+  margin-bottom: 4px;
+}
+ 
+.fotos-sub {
+  margin: 0 0 20px;
+}
+ 
+/* Distribución: tarjeta grande + columna lateral */
+.fotos-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+}
+ 
+.fotos-card,
+.fotos-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+ 
+.fotos-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Zona de arrastre */
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 200px;
+  background: var(--terracota-soft);
+  border: 1.5px dashed var(--terracota);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+ 
+.dropzone strong {
+  font-size: 16px;
+  color: var(--ink);
+}
+ 
+.dropzone-sub {
+  font-size: 14px;
+  color: var(--muted);
+}
+ 
+.dropzone-sub a {
+  font-weight: 700;
+}
+ 
+.dropzone-icono {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  color: var(--terracota);
+}
+ 
+/* Se activa por JS cuando el usuario arrastra un archivo encima */
+.dropzone.arrastrando {
+  background: #F7D9CB;
+  border-color: var(--terracota-dark);
+}
+ 
+.dropzone:focus-visible {
+  outline: 3px solid var(--terracota-soft);
+  outline-offset: 2px;
+}
+ 
+/* ---------- Cabecera del contador ---------- */
+.fotos-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 10px;
+}
+ 
+/* ---------- Cuadrícula de miniaturas ---------- */
+.fotos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 140px;
+  gap: 16px;
+}
+ 
+.foto-tile {
+  position: relative;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--neutral);
+}
+
+.foto-tile.agregar {
+  order: 1;
+}
+.foto-tile.fallida {
+  order : 2;
+}
+
+ 
+/* Marcador de posición con rayas (igual que el mockup) */
+.foto-tile.ok {
+  background: repeating-linear-gradient(135deg, #E8DFD8 0 12px, #F1EDE9 12px 24px);
+  cursor: grab;
+}
+ 
+.foto-tile.ok.arrastrada {
+  opacity: .45;
+}
+ 
+.foto-tile.principal {
+  border: 2px solid var(--terracota);
+}
+ 
+.foto-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  pointer-events: none;      /* para que el arrastre lo reciba el contenedor */
+}
+ 
+.foto-caption {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+ 
+/* Insignia "Principal" y botón "Hacer principal" */
+.foto-badge,
+.foto-hacer-principal {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 999px;
+}
+ 
+.foto-badge {
+  top: 8px;
+  left: 8px;
+  padding: 5px 10px;
+  background: var(--terracota);
+  color: #fff;
+}
+ 
+.foto-hacer-principal {
+  bottom: 8px;
+  left: 8px;
+  padding: 6px 10px;
+  background: var(--surface);
+  color: var(--terracota);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+ 
+.foto-hacer-principal:hover {
+  background: var(--terracota-soft);
+}
+ 
+/* Botón ✕ */
+.foto-quitar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--terracota);
+  border: none;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+ 
+.foto-quitar:hover {
+  background: var(--terracota-soft);
+}
+ 
+/* Barra terracota que indica dónde se soltará la miniatura */
+.foto-tile.drop-antes::before,
+.foto-tile.drop-despues::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--terracota);
+  border-radius: 4px;
+}
+ 
+.foto-tile.drop-antes::before {
+  left: -10px;
+}
+ 
+.foto-tile.drop-despues::before {
+  right: -10px;
+}
+ 
+/* ---------- Estado: subiendo ---------- */
+.foto-tile.subiendo {
+  background: var(--terracota-soft);
+  border-color: var(--border);
+  padding: 0 28px;
+}
+ 
+.barra-progreso {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+ 
+.barra-progreso span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--terracota);
+  border-radius: 999px;
+  transition: width .12s linear;
+}
+ 
+.subida-texto {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--terracota-dark);
+}
+ 
+/* ---------- Estado: agregar ---------- */
+.foto-tile.agregar {
+  gap: 4px;
+  background: var(--surface);
+  border: 1px dashed var(--terracota);
+  color: var(--terracota-dark);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+ 
+.foto-tile.agregar i {
+  font-size: 18px;
+}
+ 
+.foto-tile.agregar:hover {
+  background: var(--terracota-soft);
+}
+ 
+/* ---------- Estado: error ---------- */
+.foto-tile.fallida {
+  background: #F7E6E5;
+  border: 1px solid var(--err);
+  text-align: center;
+  gap: 2px;
+}
+ 
+.fallida-titulo {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--err);
+}
+ 
+.fallida-detalle {
+  font-size: 12px;
+  color: var(--muted);
+}
+ 
+.fallida-reintentar {
+  margin-top: 6px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--terracota-dark);
+  cursor: pointer;
+}
+ 
+.fallida-reintentar:hover {
+  text-decoration: underline;
+}
+ 
+/* ---------- Botones inferiores ---------- */
+.fotos-acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+ 
+/* ---------- Panel: reordenamiento ---------- */
+.reorden-demo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+ 
+.reorden-mini {
+  width: 110px;
+  height: 80px;
+  background: repeating-linear-gradient(135deg, #E8DFD8 0 10px, #F1EDE9 10px 20px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+ 
+.reorden-mini-activa {
+  border: 3px solid var(--terracota);
+  transform: rotate(-2deg);
+  box-shadow: var(--shadow);
+}
+ 
+.reorden-barra {
+  width: 4px;
+  height: 90px;
+  background: var(--terracota);
+  border-radius: 4px;
+}
+ 
+/* Se resalta mientras el usuario arrastra una miniatura real */
+.fotos-panel.activo {
+  border-color: var(--terracota);
+  box-shadow: 0 0 0 3px var(--terracota-soft);
+}
+ 
+/* ---------- Panel: notificaciones ---------- */
+.fotos-panel .aviso-resultado:first-of-type {
+  margin-top: 12px;
+}
+ 
+.aviso-resultado {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 20px;
+}
+ 
+.aviso-resultado:last-child {
+  margin-bottom: 0;
+}
+ 
+.aviso-resultado.exito {
+  background: #E6F4EA;
+  border-color: var(--ok);
+}
+ 
+.aviso-resultado.exito b {
+  color: var(--ok);
+}
+ 
+.aviso-resultado.error {
+  background: #F7E6E5;
+  border-color: var(--err);
+}
+ 
+.aviso-resultado.error b {
+  color: var(--err);
+}
+ 
+.aviso-resultado.limite {
+  background: var(--terracota-soft);
+  border-color: #F0D3C6;
+}
+ 
+/* Cuando ya hay foto real en la vista previa de "Nuevo aviso" (2.3) */
+.preview-imagen.con-foto i {
+  display: none;
+}
+ 
+@media (max-width: 1000px) {
+  .fotos-layout {
+    grid-template-columns: 1fr;
+  }
+}

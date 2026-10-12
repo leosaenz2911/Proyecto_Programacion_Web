@@ -32,8 +32,7 @@
       <!-- BOTON ADICIONAL -->
       <div class="nav-right">
 
-        <button id="btnPublicarAvisoSebas" class="btn btn-primary" style="display:none" onclick="abrirNuevoAviso()">
-
+        <button id="btnPublicarAvisoSebas" class="btn-publicar-sebas" onclick="showView('nuevoAvisoView')">
           Publicar aviso
         </button>
 
@@ -532,6 +531,12 @@
 
         <h1>Nuevo aviso</h1>
 
+        <div id="errorPublicarAviso" class="alerta-publicacion-error">
+          No pudimos publicar el aviso. Revisa 4 campos:
+          título, categoría, monto mínimo y fotografías.
+        </div>
+
+
         <div class="nuevo-aviso-grid">
           <div class="nuevo-aviso-formulario">
             <!-- 1. PRODUCTO -->
@@ -541,6 +546,10 @@
               <div class="field">
                 <label>Título del aviso</label>
                 <input type="text" id="nuevoTitulo" value="Cálculo de una variable — Stewart, 8.ª ed.">
+
+                <span id="errorNuevoTitulo" class="mensaje-campo-error">
+                  El título debe tener al menos 15 caracteres e incluir autor o modelo.
+                </span>
 
                 <span class="hint">
                   Incluye autor y edición: así lo buscan tus compañeros.
@@ -562,11 +571,16 @@ Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones
                   <label>Categoría</label>
 
                   <select id="nuevoCategoria">
-                    <option>Libros de texto</option>
-                    <option>Calculadoras</option>
-                    <option>Instrumentos de dibujo</option>
-                    <option>Apuntes y guías</option>
+                    <option value="">Selecciona</option>
+                    <option value="Libros de texto">Libros de texto</option>
+                    <option value="Calculadoras">Calculadoras</option>
+                    <option value="Instrumentos de dibujo">Instrumentos de dibujo</option>
+                    <option value="Apuntes y guías">Apuntes y guías</option>
                   </select>
+
+                  <span id="errorNuevoCategoria" class="mensaje-campo-error">
+                    Este campo es obligatorio.
+                  </span>
                 </div>
 
                 <div class="field">
@@ -627,10 +641,13 @@ Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones
                 <div class="field precio-field">
                   <label>Monto mínimo que aceptarás</label>
 
-                  <div class="input-precio">
+                  <div class="input-precio" id="contenedorMinimo">
                     <span>S/</span>
                     <input type="number" id="nuevoMinimo" value="70">
                   </div>
+                  <span id="errorNuevoMinimo" class="mensaje-campo-error">
+                    El mínimo no puede ser mayor que el precio pedido.
+                  </span>
                 </div>
 
               </div>
@@ -650,13 +667,16 @@ Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones
 
                   <div class="foto-secundaria"></div>
 
-                  <button type="button" class="agregar-foto">
+                  <button type="button" class="agregar-foto" onclick="showView('fotosAvisoView')">
                     <i class="fa-solid fa-plus"></i>
                     <span>Agregar foto</span>
                   </button>
 
                 </div>
 
+                <span id="errorNuevoFotos" class="mensaje-campo-error">
+                  Necesitas al menos una fotografía para publicar.
+                </span>
                 <p class="hint">
                   3 de 6 fotografías. Arrastra las miniaturas para reordenarlas.
                 </p>
@@ -700,7 +720,7 @@ Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones
             <!-- ACCIONES -->
             <div class="acciones-nuevo-aviso">
 
-              <button class="btn btn-primary">
+              <button type="button" class="btn btn-primary" onclick="validarPublicacion()">
                 Publicar
               </button>
 
@@ -719,6 +739,79 @@ Usado un ciclo en Cálculo I. Tapa firme, sin hojas sueltas, algunas anotaciones
 
       </div>
     </section>
+
+    <!-- Apartado 2.5 : Carga de fotografías -->
+    <section id="fotosAvisoView" class="view-section">
+      <div class="nuevo-aviso-contenedor">
+
+        <div class="breadcrumb">
+          <a onclick="showView('misPublicacionesView')">Mis publicaciones</a>
+          <span>›</span>
+          <a onclick="showView('nuevoAvisoView')">Editar aviso</a>
+          <span>›</span>
+          <span>Fotografías</span>
+        </div>
+
+        <h1>Fotografías del aviso</h1>
+        <p class="sub fotos-sub">Máximo 6 imágenes, JPG o PNG de hasta 5 MB cada una. La primera será la portada.</p>
+
+        <div class="fotos-layout">
+
+          <!-- ===== Columna izquierda: zona de carga + miniaturas ===== -->
+          <div class="fotos-card">
+
+            <!-- Input real (oculto). El dropzone y los botones "Agregar" lo activan -->
+            <input type="file" id="inputFotos" accept="image/jpeg,image/png" multiple hidden>
+
+            <div class="dropzone" id="dropzoneFotos" tabindex="0" role="button"
+              aria-label="Arrastra tus fotografías aquí o búscalas en tu dispositivo">
+              <span class="dropzone-icono"><i class="fa-solid fa-arrow-up"></i></span>
+              <strong>Arrastra tus fotografías aquí</strong>
+              <span class="dropzone-sub">o <a>búscalas en tu dispositivo</a></span>
+            </div>
+
+            <div class="fotos-cabecera">
+              <p class="eyebrow" id="fotosContador"></p>
+              <span class="hint">Arrastra las miniaturas para reordenar</span>
+            </div>
+
+            <!-- Las miniaturas se dibujan desde JavaScript (renderFotos) -->
+            <div class="fotos-grid" id="fotosGrid"></div>
+
+            <div class="fotos-acciones">
+              <button type="button" class="btn btn-ghost" onclick="cancelarFotos()">Cancelar</button>
+              <button type="button" class="btn btn-primary" onclick="guardarFotos()">Guardar fotografías</button>
+            </div>
+          </div>
+
+          <!-- ===== Columna derecha: ayudas visuales ===== -->
+          <aside class="fotos-lateral">
+
+            <div class="fotos-panel" id="panelReorden">
+              <p class="eyebrow">Reordenamiento en curso</p>
+              <div class="reorden-demo">
+                <div class="reorden-mini reorden-mini-activa"></div>
+                <div class="reorden-barra"></div>
+                <div class="reorden-mini"></div>
+              </div>
+              <p class="hint">La barra terracota marca la posición donde se soltará la miniatura.</p>
+            </div>
+
+            <div class="fotos-panel">
+              <p class="eyebrow">Notificaciones de resultado</p>
+              <div class="aviso-resultado exito"><b>Éxito.</b> Se guardaron 4 fotografías. La primera será la portada
+                del aviso.</div>
+              <div class="aviso-resultado error"><b>Error.</b> Una imagen no se pudo subir. Revísala e inténtalo otra
+                vez.</div>
+              <div class="aviso-resultado limite"><b>Límite alcanzado.</b> Ya tienes 6 de 6 fotografías; elimina una
+                para agregar otra.</div>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </section>
+
 
 
 
