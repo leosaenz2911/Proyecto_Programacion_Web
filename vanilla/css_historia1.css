@@ -127,11 +127,13 @@ input.is-invalid,select.is-invalid{border-color:var(--err)}
 .badge-ok{display:inline-block;margin-top:8px;background:#E6F4EA;color:var(--ok);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px}
 .profile-card hr{border:none;border-top:1px solid var(--border);margin:20px 0}
 
-/* Estados vacíos / acceso denegado */
+/* Estados vacíos / acceso denegado / 404 */
 .empty{max-width:560px;margin:56px auto;text-align:center}
 .big-icon{width:64px;height:64px;border-radius:50%;background:var(--terracota-soft);color:var(--terracota);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px}
 .big-icon.danger{background:#F7E6E5;color:var(--err)}
 .empty h1,.empty h2{margin-bottom:8px}.empty .btn{margin-top:20px}
+.err-code{font-size:72px;line-height:72px;font-weight:800;color:var(--terracota);margin-bottom:8px}
+.btn-row{display:flex;gap:12px;justify-content:center;margin-top:20px}.btn-row .btn{margin-top:0}
 
 /* Notificaciones */
 #toastArea{position:fixed;top:76px;right:16px;z-index:50;display:flex;flex-direction:column;gap:8px;max-width:340px}
@@ -150,3 +152,9 @@ footer div{display:flex;gap:28px}footer a{font-weight:700}
   .recent,.steps3{grid-template-columns:1fr}.hero h1{font-size:32px;line-height:38px}
   .topbar-main,.tabs{padding:0 16px;overflow-x:auto}.wrap{padding:0 16px}
 }
+
+/* Foto de perfil */
+.avatar-edit{position:relative;cursor:pointer;overflow:hidden}
+.avatar-edit .avatar-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);color:#fff;font-size:1.4rem;opacity:0;transition:opacity .2s}
+.avatar-edit:hover .avatar-overlay,.avatar-edit:focus .avatar-overlay{opacity:1}
+.avatar.has-photo,.avatar-sm.has-photo{background-size:cover;background-position:center;color:transparent}
