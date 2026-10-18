@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Acuerdos - Tablón ULima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilosH4.css"> 
+</head>
+<body>
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <div class="logo-container">
+                <span class="logo-icon"></span>
+                <span class="logo-text">Tablón ULima</span>
+            </div>
+        </div>
+        <div class="top-bar-right">
+            <span class="badge-role">USUARIO</span>
+            <div class="user-profile">
+                <span class="avatar-circle">DV</span>
+                <span class="user-name">Diego Vargas ▾</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#">Catálogo</a></li>
+            <li><a href="#">Mis publicaciones</a></li>
+            <li><a href="#">Favoritos</a></li>
+            <li><a href="#">Ofertas</a></li>
+            <li><a href="#" class="active">Acuerdos</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-container">
+        <h1 class="page-title">Mis Acuerdos de Entrega</h1>
+        
+        <div class="filter-bar">
+            <div class="filter-pills" id="pillsAcuerdos">
+                <button class="pill active" onclick="filtrarAcuerdos('Todos')">Todos</button>
+                <button class="pill" onclick="filtrarAcuerdos('Pendiente')">Pendientes</button>
+                <button class="pill" onclick="filtrarAcuerdos('Acordado')">Acordados</button>
+                <button class="pill" onclick="filtrarAcuerdos('Entregado')">Entregados</button>
+                <button class="pill" onclick="filtrarAcuerdos('Cancelado')">Cancelados</button>
+            </div>
+        </div>
+
+        <div id="listaAcuerdos" class="sent-offers-list">
+        </div>
+    </main>
+
+    <div id="modalAcuerdo" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Gestionar Acuerdo</h3>
+                <button class="close-modal-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-preview-box">
+                    <div class="pink-square"></div>
+                    <div>
+                        <h4 id="modalProducto">Nombre del producto</h4>
+                        <p id="modalInfo">Monto: S/ 0.00</p>
+                    </div>
+                </div>
+                
+                <div id="modalContenidoDinamico"></div>
+            </div>
+            <div class="modal-footer" id="modalBotones">
+            </div>
+        </div>
+    </div>
+
+    <script src="script_acuerdos.js"></script>
+</body>
+</html>
