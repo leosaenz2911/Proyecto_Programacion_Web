@@ -19,14 +19,15 @@ const NAME_RE = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+([ '-][A-Za-zÁÉÍÓÚÜ
 // ===== RUTAS Y CONTROL DE ACCESO POR ROL =====
 const HOME_BY_ROLE = { USUARIO: 'catalogView', ADMINISTRADOR: 'adminView' };
 const ROUTES = {
-  landingView: {}, catalogView: {}, deniedView: {},
+  landingView: {}, catalogView: {}, deniedView: {}, notFoundView: {},
   loginView: { guestOnly: true }, registerView: { guestOnly: true }, recoverView: { guestOnly: true },
   profileView: { roles: ['USUARIO', 'ADMINISTRADOR'] },
   adminView: { roles: ['ADMINISTRADOR'] }
 };
 
 function showView(viewId) {
-  const route = ROUTES[viewId] || {};
+  if (!ROUTES[viewId]) viewId = 'notFoundView';   // ruta desconocida → 404
+  const route = ROUTES[viewId];
   const user = state.currentUser;
 
   if (route.guestOnly && user) {

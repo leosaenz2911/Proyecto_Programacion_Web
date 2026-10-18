@@ -207,11 +207,19 @@
       <aside class="stack">
         <div class="card profile-card">
           <div class="avatar avatar-edit" id="profileAvatar" onclick="document.getElementById('avatarInput').click()" title="Cambiar foto" tabindex="0">
+<<<<<<< HEAD:vanilla/index.html
+            <span id="profileAvatarText">RQ</span>
+            <span class="avatar-overlay"><i class="fa-solid fa-camera"></i></span>
+          </div>
+          <input type="file" id="avatarInput" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="handleAvatarChange(event)">
+          <button type="button" class="btn btn-ghost" id="avatarRemoveBtn" onclick="removeAvatar()" style="display:none;margin:8px auto 0">Quitar foto</button>
+=======
   <span id="profileAvatarText">RQ</span>
   <span class="avatar-overlay"><i class="fa-solid fa-camera"></i></span>
 </div>
 <input type="file" id="avatarInput" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="handleAvatarChange(event)">
 <button type="button" class="btn btn-ghost" id="avatarRemoveBtn" onclick="removeAvatar()" style="display:none;margin:8px auto 0">Quitar foto</button>
+>>>>>>> origin/main:html_historia1.html
           <h2 id="profileName"></h2>
           <span class="badge-ok"><i class="fa-solid fa-circle-check"></i> Verificado</span>
           <hr>
@@ -234,11 +242,22 @@
     <button class="btn btn-primary" onclick="goHome()">Volver al catálogo</button>
   </div></div></section>
 
+  <!-- 1.7 PÁGINA NO ENCONTRADA (404) -->
+  <section id="notFoundView" class="view-section"><div class="wrap"><div class="empty">
+    <div class="err-code">404</div>
+    <h1>Este aviso ya no está en el tablón</h1>
+    <p class="sub">Puede que el vendedor lo haya retirado o que el enlace esté mal escrito. Busca algo parecido en el catálogo.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="showView('catalogView')">Ir al catálogo</button>
+      <button class="btn btn-secondary" onclick="history.back()">Volver atrás</button>
+    </div>
+  </div></div></section>
+
 </main>
 
 <footer>
   <span>Universidad de Lima · Campus Monterrico · Av. Javier Prado Este 4600</span>
-  <div><a>Normas del tablón</a><a>Mesa de ayuda</a><a>tablon@ulima.edu.pe</a><a onclick="showView('adminView')">Demo: ruta admin</a></div>
+  <div><a>Normas del tablón</a><a>Mesa de ayuda</a><a>tablon@ulima.edu.pe</a><a onclick="showView('adminView')">Demo: ruta admin</a><a onclick="showView('rutaInexistente')">Demo: 404</a></div>
 </footer>
 
 <script src="java_historia1.js"></script>
