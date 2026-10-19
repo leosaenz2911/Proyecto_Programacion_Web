@@ -15,17 +15,17 @@ export default function App() {
     <>
       <header className={"topbar"}>
         <div className={"topbar-main"}>
-          <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"brand"} onClick={(event) => { legacy.goHome(); }}>
+          <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"brand"} onClick={(event) => { legacy.goHome(); }}>
             <img className={"brand-logo"} src="/img/logo_ulima.svg" alt={""} />
             <span>
               {"Tablón ULima"}
             </span>
           </a>
           <nav className={"nav-links"} id={"navPublic"}>
-            <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('catalogView'); }}>
+            <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('catalogView'); }}>
               {"Catálogo"}
             </a>
-            <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('landingView'); }}>
+            <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('landingView'); }}>
               {"Cómo funciona"}
             </a>
             <a>
@@ -35,26 +35,26 @@ export default function App() {
               {"Ayuda"}
             </a>
           </nav>
-          <form className={"nav-search"} id={"navSearch"} style={{"display": "none"}} onSubmit={(event) => { event.preventDefault();legacy.showView('catalogView'); }}>
+          <form className={"nav-search"} id={"navSearch"} style={{ "display": "none" }} onSubmit={(event) => { event.preventDefault(); legacy.showView('catalogView'); }}>
             <input type={"search"} placeholder={"Buscar libros, calculadoras, apuntes…"} />
           </form>
           <div className={"nav-right"}>
-            <button type={"button"} id={"btnPublicarAvisoSebas"} className={"btn-publicar-sebas"} style={{"display": "none"}} onClick={(event) => { legacy.showView('nuevoAvisoView'); }}>
+            <button type={"button"} id={"btnPublicarAvisoSebas"} className={"btn-publicar-sebas"} style={{ "display": "none" }} onClick={(event) => { legacy.showView('nuevoAvisoView'); }}>
               {"Publicar aviso"}
             </button>
             <span className={"role-badge role-visitante"} id={"userRoleBadge"}>
               {"VISITANTE"}
             </span>
             <div id={"navAuthButtons"}>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"btn btn-ghost"} onClick={(event) => { legacy.showView('loginView'); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"btn btn-ghost"} onClick={(event) => { legacy.showView('loginView'); }}>
                 {"Ingresar"}
               </a>
               <button className={"btn btn-primary"} onClick={(event) => { legacy.showView('registerView'); }}>
                 {"Crear cuenta"}
               </button>
             </div>
-            <div id={"navUserMenu"} style={{"display": "none"}}>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"user-chip"} onClick={(event) => { legacy.showView('profileView'); }}>
+            <div id={"navUserMenu"} style={{ "display": "none" }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"user-chip"} onClick={(event) => { legacy.showView('profileView'); }}>
                 <span className={"avatar-sm"} id={"navAvatar"}>
                   {"RQ"}
                 </span>
@@ -66,7 +66,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <nav className={"tabs"} id={"navTabs"} style={{"display": "none"}}></nav>
+        <nav className={"tabs"} id={"navTabs"} style={{ "display": "none" }}></nav>
       </header>
       <div id={"toastArea"} aria-live={"polite"}></div>
       <main>
@@ -79,7 +79,7 @@ export default function App() {
               <p className={"sub"}>
                 {"Libros, calculadoras e instrumentos de segunda mano publicados por estudiantes de la Universidad de Lima. Oferta, acuerda y recoge dentro del campus."}
               </p>
-              <form className={"hero-search"} onSubmit={(event) => { event.preventDefault();legacy.showView('catalogView'); }}>
+              <form className={"hero-search"} onSubmit={(event) => { event.preventDefault(); legacy.showView('catalogView'); }}>
                 <input type={"search"} placeholder={"¿Qué estás buscando? Ej. Stewart Cálculo"} />
                 <button className={"btn btn-primary"}>
                   {"Buscar"}
@@ -114,10 +114,10 @@ export default function App() {
             </div>
           </div>
           <div className={"wrap"}>
-            <p className={"eyebrow"} style={{"marginTop": "28px"}}>
+            <p className={"eyebrow"} style={{ "marginTop": "28px" }}>
               {"Categorías destacadas"}
             </p>
-            <div className={"cats"} style={{"marginTop": "12px"}}>
+            <div className={"cats"} style={{ "marginTop": "12px" }}>
               <div className={"cat"}>
                 <i className={"fa-solid fa-book"}></i>
                 {"Libros de texto"}
@@ -151,7 +151,7 @@ export default function App() {
               <h2>
                 {"Avisos recientes"}
               </h2>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('catalogView'); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('catalogView'); }}>
                 {"Ver todo el catálogo →"}
               </a>
             </div>
@@ -254,7 +254,7 @@ export default function App() {
                 <p className={"sub"}>
                   {"Usa tu correo institucional @aloe.ulima.edu.pe para ofertar, publicar y coordinar entregas."}
                 </p>
-                <div className={"alert alert-error"} id={"loginError"} style={{"display": "none"}}></div>
+                <div className={"alert alert-error"} id={"loginError"} style={{ "display": "none" }}></div>
                 <form id={"loginForm"} onSubmit={(event) => { legacy.handleLogin(event); }} novalidate={""}>
                   <div className={"field"}>
                     <label htmlFor={"loginEmail"}>
@@ -269,7 +269,7 @@ export default function App() {
                     </label>
                     <div className={"pass-wrap"}>
                       <input type={"password"} id={"loginPassword"} placeholder={"••••••••••"} />
-                      <button type={"button"} className={"pass-toggle"} onClick={(event) => { legacy.togglePassword('loginPassword',event.currentTarget); }}>
+                      <button type={"button"} className={"pass-toggle"} onClick={(event) => { legacy.togglePassword('loginPassword', event.currentTarget); }}>
                         {"Mostrar"}
                       </button>
                     </div>
@@ -277,7 +277,7 @@ export default function App() {
                   </div>
                   <div className={"form-foot"}>
                     <span></span>
-                    <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.startRecovery(); }}>
+                    <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.startRecovery(); }}>
                       {"¿Olvidaste tu contraseña?"}
                     </a>
                   </div>
@@ -287,7 +287,7 @@ export default function App() {
                 </form>
                 <p className={"switch"}>
                   {"¿No tienes cuenta? "}
-                  <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('registerView'); }}>
+                  <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('registerView'); }}>
                     <b>
                       {"Crear cuenta"}
                     </b>
@@ -324,7 +324,7 @@ export default function App() {
               <p className={"sub"}>
                 {"Solo para estudiantes con correo institucional. La cuenta se activa al confirmar el correo."}
               </p>
-              <div className={"alert alert-error"} id={"regAlert"} style={{"display": "none"}}></div>
+              <div className={"alert alert-error"} id={"regAlert"} style={{ "display": "none" }}></div>
               <form id={"registerForm"} onSubmit={(event) => { legacy.handleRegister(event); }} novalidate={""}>
                 <div className={"row2"}>
                   <div className={"field"}>
@@ -463,7 +463,7 @@ export default function App() {
                   <span className={"error-msg"} id={"regTermsError"}></span>
                 </div>
                 <div className={"form-actions"}>
-                  <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"btn btn-ghost"} onClick={(event) => { legacy.showView('loginView'); }}>
+                  <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"btn btn-ghost"} onClick={(event) => { legacy.showView('loginView'); }}>
                     {"Cancelar"}
                   </a>
                   <button type={"submit"} className={"btn btn-primary"}>
@@ -490,7 +490,7 @@ export default function App() {
                 {"Paso 3 · Nueva contraseña"}
               </div>
             </div>
-            <div className={"card card-mid"} style={{"marginBottom": "48px"}}>
+            <div className={"card card-mid"} style={{ "marginBottom": "48px" }}>
               <form id={"recoverStep1"} className={"recover-step"} onSubmit={(event) => { legacy.handleRecoverEmail(event); }} novalidate={""}>
                 <h1>
                   {"Ingresa tu correo institucional"}
@@ -506,7 +506,7 @@ export default function App() {
                   <span className={"error-msg"} id={"recEmailError"}></span>
                 </div>
                 <div className={"form-foot"}>
-                  <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('loginView'); }}>
+                  <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('loginView'); }}>
                     <b>
                       {"Volver al inicio de sesión"}
                     </b>
@@ -516,7 +516,7 @@ export default function App() {
                   </button>
                 </div>
               </form>
-              <div id={"recoverStep2"} className={"recover-step"} style={{"textAlign": "center"}}>
+              <div id={"recoverStep2"} className={"recover-step"} style={{ "textAlign": "center" }}>
                 <div className={"big-icon"}>
                   <i className={"fa-regular fa-envelope"}></i>
                 </div>
@@ -542,7 +542,7 @@ export default function App() {
                 <h1>
                   {"Crea tu nueva contraseña"}
                 </h1>
-                <div className={"field"} style={{"marginTop": "16px"}}>
+                <div className={"field"} style={{ "marginTop": "16px" }}>
                   <label htmlFor={"newPass"}>
                     {"Nueva contraseña"}
                   </label>
@@ -701,8 +701,8 @@ export default function App() {
                       <i className={"fa-solid fa-camera"}></i>
                     </span>
                   </div>
-                  <input type={"file"} id={"avatarInput"} accept={"image/png,image/jpeg,image/webp"} style={{"display": "none"}} onChange={(event) => { legacy.handleAvatarChange(event); }} />
-                  <button type={"button"} className={"btn btn-ghost"} id={"avatarRemoveBtn"} onClick={(event) => { legacy.removeAvatar(); }} style={{"display": "none", "margin": "8px auto 0"}}>
+                  <input type={"file"} id={"avatarInput"} accept={"image/png,image/jpeg,image/webp"} style={{ "display": "none" }} onChange={(event) => { legacy.handleAvatarChange(event); }} />
+                  <button type={"button"} className={"btn btn-ghost"} id={"avatarRemoveBtn"} onClick={(event) => { legacy.removeAvatar(); }} style={{ "display": "none", "margin": "8px auto 0" }}>
                     {"Quitar foto"}
                   </button>
                   <h2 id={"profileName"}></h2>
@@ -714,7 +714,7 @@ export default function App() {
                   <p className={"eyebrow"}>
                     {"Cerrar sesión"}
                   </p>
-                  <p className={"hint"} style={{"margin": "6px 0 12px"}}>
+                  <p className={"hint"} style={{ "margin": "6px 0 12px" }}>
                     {"En este dispositivo."}
                   </p>
                   <button className={"btn btn-secondary btn-block"} onClick={(event) => { legacy.logout(); }}>
@@ -1033,7 +1033,7 @@ export default function App() {
               </tr>
             </tbody>
           </table>
-          <div id={"misPubSinAvisos"} className={"mis-pub-sin-avisos"} style={{"display": "none"}}>
+          <div id={"misPubSinAvisos"} className={"mis-pub-sin-avisos"} style={{ "display": "none" }}>
             <div className={"mis-pub-sin-avisos-contenido"}>
               <div className={"mis-pub-sin-avisos-icono"} aria-hidden={"true"}></div>
               <h2>
@@ -1045,12 +1045,12 @@ export default function App() {
               <button type={"button"} className={"btn btn-primary"} onClick={(event) => { legacy.showView('nuevoAvisoView'); }}>
                 {"\n            Crear mi primer aviso\n          "}
               </button>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"mis-pub-enlace-ayuda"} onClick={(event) => { legacy.verComoFuncionaTablon(); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} className={"mis-pub-enlace-ayuda"} onClick={(event) => { legacy.verComoFuncionaTablon(); }}>
                 {"\n            Ver cómo funciona el tablón\n          "}
               </a>
             </div>
           </div>
-          <div className={"estado-vacio"} id={"misPubVacio"} style={{"display": "none"}}>
+          <div className={"estado-vacio"} id={"misPubVacio"} style={{ "display": "none" }}>
             <div className={"estado-vacio-icono"}>
               <i className={"fa-regular fa-folder-open"}></i>
             </div>
@@ -1084,7 +1084,7 @@ export default function App() {
         <section id={"nuevoAvisoView"} className={"view-section"}>
           <div className={"nuevo-aviso-contenedor"}>
             <div className={"breadcrumb"}>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('misPublicacionesView'); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('misPublicacionesView'); }}>
                 {"Mis publicaciones"}
               </a>
               <span>
@@ -1339,13 +1339,13 @@ export default function App() {
         <section id={"fotosAvisoView"} className={"view-section"}>
           <div className={"nuevo-aviso-contenedor"}>
             <div className={"breadcrumb"}>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('misPublicacionesView'); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('misPublicacionesView'); }}>
                 {"Mis publicaciones"}
               </a>
               <span>
                 {"›"}
               </span>
-              <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('nuevoAvisoView'); }}>
+              <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('nuevoAvisoView'); }}>
                 {"Editar aviso"}
               </a>
               <span>
@@ -1450,12 +1450,12 @@ export default function App() {
           <a>
             {"tablon@ulima.edu.pe"}
           </a>
-          <a role="button" tabIndex={0} onKeyDown={(event) => { if(event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('adminView'); }}>
+          <a role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.currentTarget.click(); } }} onClick={(event) => { legacy.showView('adminView'); }}>
             {"Demo: ruta admin"}
           </a>
         </div>
       </footer>
-      <div id={"menuAcciones"} className={"menu-acciones"} style={{"display": "none"}}>
+      <div id={"menuAcciones"} className={"menu-acciones"} style={{ "display": "none" }}>
         <button type={"button"} onClick={(event) => { legacy.abrirModalEstado(); }}>
           <i className={"fa-solid fa-arrows-rotate"}></i>
           {" Cambiar estado\n    "}
@@ -1465,7 +1465,7 @@ export default function App() {
           {" Eliminar aviso\n    "}
         </button>
       </div>
-      <div id={"modalEstado"} className={"modal-overlay"} style={{"display": "none"}}>
+      <div id={"modalEstado"} className={"modal-overlay"} style={{ "display": "none" }}>
         <div className={"modal-caja"} role={"dialog"} aria-modal={"true"} aria-labelledby={"modalEstadoTitulo"}>
           <h3 id={"modalEstadoTitulo"}>
             {"Cambiar el estado del aviso"}
@@ -1485,7 +1485,7 @@ export default function App() {
               {" Marcar como vendido\n        "}
             </label>
           </div>
-          <div className={"modal-aviso"} id={"modalEstadoAviso"} style={{"display": "none"}}></div>
+          <div className={"modal-aviso"} id={"modalEstadoAviso"} style={{ "display": "none" }}></div>
           <div className={"modal-acciones"}>
             <button type={"button"} className={"btn btn-ghost"} onClick={(event) => { legacy.cerrarModales(); }}>
               {"Cancelar"}
@@ -1496,7 +1496,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <div id={"modalEliminar"} className={"modal-overlay"} style={{"display": "none"}}>
+      <div id={"modalEliminar"} className={"modal-overlay"} style={{ "display": "none" }}>
         <div className={"modal-caja"} role={"dialog"} aria-modal={"true"} aria-labelledby={"modalEliminarTitulo"}>
           <div className={"modal-icono-peligro"}>
             <i className={"fa-solid fa-triangle-exclamation"}></i>
@@ -1505,7 +1505,7 @@ export default function App() {
             {"Eliminar aviso"}
           </h3>
           <p className={"modal-texto"} id={"modalEliminarTexto"}></p>
-          <div className={"modal-aviso modal-aviso-peligro"} id={"modalEliminarAviso"} style={{"display": "none"}}></div>
+          <div className={"modal-aviso modal-aviso-peligro"} id={"modalEliminarAviso"} style={{ "display": "none" }}></div>
           <div className={"field"}>
             <label htmlFor={"confirmarEliminarInput"}>
               {"Escribe ELIMINAR para confirmar"}
@@ -1516,7 +1516,7 @@ export default function App() {
             <button type={"button"} className={"btn btn-ghost"} onClick={(event) => { legacy.cerrarModales(); }}>
               {"Cancelar"}
             </button>
-            <button type={"button"} className={"btn btn-danger"} id={"btnConfirmarEliminar"} onClick={(event) => { legacy.confirmarEliminar(); }} disabled={true}>
+            <button type={"button"} className={"btn btn-danger"} id={"btnConfirmarEliminar"} onClick={(event) => { legacy.confirmarEliminar(); }} >
               {"Eliminar aviso"}
             </button>
           </div>

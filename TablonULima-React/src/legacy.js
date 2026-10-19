@@ -11,12 +11,18 @@ export function initializeLegacy() {
 // ===== DATOS SIMULADOS (front) — en la 2.ª entrega pasan a la API/BD =====
 const USERS_KEY = 'tablon_users', SESSION_KEY = 'tablon_session';
 const SEED_USERS = [
-  { id: 'USR-001', nombres: 'Rosa María', apellidos: 'Quispe Ríos', correo: '20201234@aloe.ulima.edu.pe', password: 'Rosa1234',
-    carrera: 'Administración', ciclo: 'Cuarto', telefono: '987 654 321', puntoEncuentroPreferido: 'Biblioteca', rol: 'USUARIO', bloqueado: false },
-  { id: 'USR-900', nombres: 'Julio', apellidos: 'Mendoza', correo: '20150001@aloe.ulima.edu.pe', password: 'Admin1234',
-    carrera: 'Ingeniería de Sistemas', ciclo: 'Décimo', telefono: '', puntoEncuentroPreferido: 'Biblioteca', rol: 'ADMINISTRADOR', bloqueado: false },
-  { id: 'USR-050', nombres: 'Marco Antonio', apellidos: 'Loayza Pinto', correo: '20189922@aloe.ulima.edu.pe', password: 'Marco1234',
-    carrera: 'Comunicación', ciclo: 'Octavo', telefono: '', puntoEncuentroPreferido: 'Puerta 1', rol: 'USUARIO', bloqueado: true }
+  {
+    id: 'USR-001', nombres: 'Rosa María', apellidos: 'Quispe Ríos', correo: '20201234@aloe.ulima.edu.pe', password: 'Rosa1234',
+    carrera: 'Administración', ciclo: 'Cuarto', telefono: '987 654 321', puntoEncuentroPreferido: 'Biblioteca', rol: 'USUARIO', bloqueado: false
+  },
+  {
+    id: 'USR-900', nombres: 'Julio', apellidos: 'Mendoza', correo: '20150001@aloe.ulima.edu.pe', password: 'Admin1234',
+    carrera: 'Ingeniería de Sistemas', ciclo: 'Décimo', telefono: '', puntoEncuentroPreferido: 'Biblioteca', rol: 'ADMINISTRADOR', bloqueado: false
+  },
+  {
+    id: 'USR-050', nombres: 'Marco Antonio', apellidos: 'Loayza Pinto', correo: '20189922@aloe.ulima.edu.pe', password: 'Marco1234',
+    carrera: 'Comunicación', ciclo: 'Octavo', telefono: '', puntoEncuentroPreferido: 'Puerta 1', rol: 'USUARIO', bloqueado: true
+  }
 ];
 
 const state = { currentUser: null, pendingView: null, recoveryEmail: null };
@@ -542,7 +548,7 @@ function guardarFormularioComoAviso(estado) {
   const u = state.currentUser;
   if (!u || u.rol !== 'USUARIO') return;
   const lista = leerAvisosHu2();
-  const id = hu2AvisoEnEdicion || `AV-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
+  const id = hu2AvisoEnEdicion || `AV-${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
   const aviso = {
     id, propietario: u.id, estado,
     titulo: $('nuevoTitulo').value.trim(), descripcion: $('nuevoDescripcion').value.trim(),
@@ -658,7 +664,7 @@ function aplicarFiltroPublicaciones() {
 }
 
 // Funcion para el boton de nuevo aviso
-function abrirNuevoAviso(){
+function abrirNuevoAviso() {
   showView('nuevoAvisoView');
 }
 
@@ -785,7 +791,7 @@ function validarPublicacion() {
 function guardarBorradorNuevoAviso() {
   // 2.4: Los datos básicos del borrador se guardan localmente incluso si hay errores.
   const clave = 'tablon_borrador_nuevo_' + (state.currentUser?.id || 'demo');
-  const datos = Object.fromEntries(['nuevoTitulo','nuevoDescripcion','nuevoCategoria','nuevoCurso','nuevoPrecio','nuevoMinimo'].map(id => [id, $(id).value]));
+  const datos = Object.fromEntries(['nuevoTitulo', 'nuevoDescripcion', 'nuevoCategoria', 'nuevoCurso', 'nuevoPrecio', 'nuevoMinimo'].map(id => [id, $(id).value]));
   datos.condicion = document.querySelector('#condicionesAviso .chip-active')?.textContent.trim() || '';
   localStorage.setItem(clave, JSON.stringify(datos));
   // HU2: además del respaldo temporal, el borrador se refleja en Mis publicaciones.
@@ -794,7 +800,7 @@ function guardarBorradorNuevoAviso() {
 
 // Actualiza los errores al corregir un campo, sin interferir con otros formularios.
 onLegacyReady(() => {
-  ['nuevoTitulo','nuevoDescripcion','nuevoCategoria','nuevoCurso','nuevoPrecio','nuevoMinimo'].forEach(id => {
+  ['nuevoTitulo', 'nuevoDescripcion', 'nuevoCategoria', 'nuevoCurso', 'nuevoPrecio', 'nuevoMinimo'].forEach(id => {
     const campo = $(id);
     campo.addEventListener('input', actualizarValidacionNuevoAviso);
     campo.addEventListener('change', actualizarValidacionNuevoAviso);
@@ -845,16 +851,16 @@ let fotosAviso = [];
 let fotoArrastradaId = null;      // id de la miniatura que se está reordenando
 let fotoSeq = 0;                  // contador para generar ids únicos
 const temporizadoresFotos = {};   // un setInterval por cada foto que está subiendo
- 
+
 const nuevoIdFoto = () => 'foto-' + (++fotoSeq);
- 
+
 // Las fotos "activas" son las que ocupan un cupo de las 6 (las fallidas no cuentan)
 const fotosActivas = () => fotosAviso.filter(f => f.estado !== 'error');
- 
+
 // Evita que un nombre de archivo con < > se interprete como HTML
 const escaparHTML = t => t.replace(/[&<>"']/g,
   c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
- 
+
 /* ---------- 3. VALIDACIÓN DE CADA ARCHIVO ---------- */
 // Devuelve el texto del error, o '' si el archivo es válido
 function validarArchivoFoto(archivo) {
@@ -862,18 +868,18 @@ function validarArchivoFoto(archivo) {
   if (archivo.size > FOTOS_MAX_BYTES) return 'La imagen supera 5 MB';
   return '';
 }
- 
+
 /* ---------- 4. RECIBIR ARCHIVOS (por clic o por arrastre) ---------- */
 function procesarArchivos(lista) {
   let huboError = false, limite = false;
- 
+
   Array.from(lista).forEach(archivo => {
     const foto = {
       id: nuevoIdFoto(),
       nombre: archivo.name.replace(/\.[^.]+$/, ''),   // nombre sin extensión
       src: null, progreso: 0
     };
- 
+
     const motivo = validarArchivoFoto(archivo);
     if (motivo) {                                      // archivo inválido -> tarjeta roja
       foto.estado = 'error';
@@ -883,7 +889,7 @@ function procesarArchivos(lista) {
       return;
     }
     if (fotosActivas().length >= FOTOS_MAX) { limite = true; return; }
- 
+
     foto.estado = 'subiendo';
     fotosAviso.push(foto);
     // Comprimir y codificar evita que la portada se pierda después de recargar.
@@ -902,12 +908,12 @@ function procesarArchivos(lista) {
     };
     reader.readAsDataURL(archivo);
   });
- 
+
   if (huboError) showToast('Error. Una imagen no se pudo subir. Revísala e inténtalo otra vez.', 'error');
   if (limite) showToast('Límite alcanzado. Ya tienes 6 de 6 fotografías; elimina una para agregar otra.', 'info');
   renderFotos();
 }
- 
+
 // Fotos redimensionadas preservando proporción. El almacenamiento sigue siendo local.
 function optimizarFoto(dataUrl) {
   return new Promise((resolve, reject) => {
@@ -941,14 +947,14 @@ function simularSubida(foto) {
     }
   }, 150);
 }
- 
+
 function actualizarProgreso(foto) {
   const tile = document.querySelector(`[data-id="${foto.id}"]`);
   if (!tile) return;
   tile.querySelector('.barra-progreso span').style.width = foto.progreso + '%';
   tile.querySelector('.subida-texto').textContent = `Subiendo ${Math.round(foto.progreso)} %`;
 }
- 
+
 /* ---------- 6. DIBUJAR LAS MINIATURAS ---------- */
 function htmlTile(foto, esPrincipal) {
   // a) Subiendo -> barra de progreso
@@ -978,52 +984,52 @@ function htmlTile(foto, esPrincipal) {
     <button type="button" class="foto-quitar" aria-label="Quitar fotografía" data-foto-action="quitar"><i class="fa-solid fa-xmark"></i></button>
   </div>`;
 }
- 
+
 function renderFotos() {
   const primeraOk = fotosAviso.find(f => f.estado === 'ok');   // la primera "ok" es la portada
   const activas = fotosActivas().length;
- 
+
   const tiles = fotosAviso.map(f => htmlTile(f, f === primeraOk)).join('');
   const botonAgregar = activas < FOTOS_MAX
     ? `<button type="button" class="foto-tile agregar" data-foto-action="agregar">
          <i class="fa-solid fa-plus"></i><span>Agregar</span></button>`
     : '';                                                       // con 6 fotos ya no se muestra
- 
+
   $('fotosGrid').innerHTML = tiles + botonAgregar;
   $('fotosContador').textContent = `${activas} de ${FOTOS_MAX} fotografías`;
 }
- 
+
 /* ---------- 7. ACCIONES SOBRE UNA MINIATURA ---------- */
 function quitarFoto(id) {
   clearInterval(temporizadoresFotos[id]);
   fotosAviso = fotosAviso.filter(f => f.id !== id);
   renderFotos();
 }
- 
+
 function hacerPrincipal(id) {
   const i = fotosAviso.findIndex(f => f.id === id);
   const [foto] = fotosAviso.splice(i, 1);
   fotosAviso.unshift(foto);               // pasar al inicio = pasar a ser la portada
   renderFotos();
 }
- 
+
 function reintentarFoto(id) {
   quitarFoto(id);                         // se descarta la fallida...
   $('inputFotos').click();                // ...y se abre el selector para elegir otra
 }
- 
+
 /* ---------- 8. REORDENAR ARRASTRANDO (HTML5 drag & drop) ---------- */
 function limpiarIndicadoresDrop() {
   document.querySelectorAll('.drop-antes, .drop-despues')
     .forEach(t => t.classList.remove('drop-antes', 'drop-despues'));
 }
- 
+
 // ¿el cursor está en la mitad izquierda o derecha de la miniatura?
 const cursorDespues = (e, tile) => {
   const r = tile.getBoundingClientRect();
   return e.clientX > r.left + r.width / 2;
 };
- 
+
 function iniciarArrastreMiniaturas() {
   const grid = $('fotosGrid');
   grid.addEventListener('click', event => {
@@ -1036,7 +1042,7 @@ function iniciarArrastreMiniaturas() {
     if (accion === 'principal' && id) hacerPrincipal(id);
     if (accion === 'reintentar' && id) reintentarFoto(id);
   });
- 
+
   grid.addEventListener('dragstart', e => {
     const tile = e.target.closest('.foto-tile.ok');
     if (!tile) return;
@@ -1046,7 +1052,7 @@ function iniciarArrastreMiniaturas() {
     e.dataTransfer.setData('text/plain', fotoArrastradaId);   // Firefox lo exige
     $('panelReorden').classList.add('activo');
   });
- 
+
   grid.addEventListener('dragover', e => {
     const tile = e.target.closest('.foto-tile.ok');
     if (!fotoArrastradaId || !tile || tile.dataset.id === fotoArrastradaId) return;
@@ -1054,12 +1060,12 @@ function iniciarArrastreMiniaturas() {
     limpiarIndicadoresDrop();
     tile.classList.add(cursorDespues(e, tile) ? 'drop-despues' : 'drop-antes');   // barra terracota
   });
- 
+
   grid.addEventListener('drop', e => {
     const tile = e.target.closest('.foto-tile.ok');
     if (!fotoArrastradaId || !tile || tile.dataset.id === fotoArrastradaId) return;
     e.preventDefault();
- 
+
     const desde = fotosAviso.findIndex(f => f.id === fotoArrastradaId);
     const [movida] = fotosAviso.splice(desde, 1);                       // 1) la saco de su lugar
     let hasta = fotosAviso.findIndex(f => f.id === tile.dataset.id);    // 2) busco el destino
@@ -1067,7 +1073,7 @@ function iniciarArrastreMiniaturas() {
     fotosAviso.splice(hasta, 0, movida);                                // 3) la inserto
     renderFotos();
   });
- 
+
   grid.addEventListener('dragend', () => {
     fotoArrastradaId = null;
     limpiarIndicadoresDrop();
@@ -1075,17 +1081,17 @@ function iniciarArrastreMiniaturas() {
     document.querySelectorAll('.arrastrada').forEach(t => t.classList.remove('arrastrada'));
   });
 }
- 
+
 /* ---------- 9. ZONA DE ARRASTRE PARA ARCHIVOS ---------- */
 function iniciarDropzone() {
   const zona = $('dropzoneFotos'), input = $('inputFotos');
   const esArchivo = e => e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files');
- 
+
   zona.addEventListener('click', () => input.click());
   zona.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
   });
- 
+
   ['dragenter', 'dragover'].forEach(ev => zona.addEventListener(ev, e => {
     if (!esArchivo(e)) return;
     e.preventDefault();
@@ -1098,13 +1104,13 @@ function iniciarDropzone() {
     zona.classList.remove('arrastrando');
     procesarArchivos(e.dataTransfer.files);
   });
- 
+
   input.addEventListener('change', () => {
     procesarArchivos(input.files);
     input.value = '';        // permite volver a elegir el mismo archivo
   });
 }
- 
+
 /* ---------- 10. GUARDAR / CANCELAR ---------- */
 function guardarFotos() {
   // las subidas reales deben terminar (la miniatura "pausada" de la demo no cuenta)
@@ -1122,12 +1128,12 @@ function guardarFotos() {
   showToast(`Éxito. Se guardaron ${listas.length} fotografía${listas.length > 1 ? 's' : ''}. La primera será la portada del aviso.`);
   showView('nuevoAvisoView');
 }
- 
+
 function cancelarFotos() {
   restaurarFotosEnEdicion();
   showView('nuevoAvisoView');
 }
- 
+
 // Al abrir el editor de fotos, partir de lo último guardado; cancelar no aplica cambios.
 function restaurarFotosEnEdicion() {
   Object.values(temporizadoresFotos).forEach(clearInterval);
@@ -1169,7 +1175,7 @@ function sincronizarFotosNuevoAviso() {
   prev.style.backgroundPosition = 'center';
   actualizarValidacionNuevoAviso(); // 2.4: al guardar fotos, quitar el aviso rojo de fotografías.
 }
- 
+
 /* ---------- 11. ARRANQUE ---------- */
 function cargarFotosDemo() {
   fotosAviso = [
@@ -1180,7 +1186,7 @@ function cargarFotosDemo() {
     { id: nuevoIdFoto(), nombre: 'foto 5', estado: 'error', mensajeError: 'La imagen supera 5 MB' }
   ];
 }
- 
+
 onLegacyReady(() => {
   if (MODO_DEMO) cargarFotosDemo();
   iniciarDropzone();
@@ -1192,17 +1198,17 @@ onLegacyReady(() => {
 let filaAccion = null;   // <tr> del aviso sobre el que se está actuando
 
 const ESTADOS_AVISO = {
-  publicado: { badge: 'publicado-azul',   texto: 'Publicado' },
-  pausado:   { badge: 'publicado-yellow', texto: 'Pausado'   },
-  borrador:  { badge: 'publicado-borrador', texto: 'Borrador' },
-  vendido:   { badge: 'publicado-verde',  texto: 'Vendido'   }
+  publicado: { badge: 'publicado-azul', texto: 'Publicado' },
+  pausado: { badge: 'publicado-yellow', texto: 'Pausado' },
+  borrador: { badge: 'publicado-borrador', texto: 'Borrador' },
+  vendido: { badge: 'publicado-verde', texto: 'Vendido' }
 };
 
 // Estados a los que se puede pasar desde cada estado actual
 const TRANSICIONES = {
   publicado: ['pausado', 'vendido'],
-  pausado:   ['publicado', 'vendido'],
-  borrador:  ['publicado']
+  pausado: ['publicado', 'vendido'],
+  borrador: ['publicado']
 };
 
 /* ---------- Lectura de datos de la fila ---------- */
@@ -1310,8 +1316,8 @@ function confirmarCambioEstado() {
   actualizarContadoresMisPub();
   aplicarFiltroPublicaciones();
   const mensajes = {
-    vendido:   'Éxito. El aviso se marcó como vendido y salió del catálogo.',
-    pausado:   'Éxito. El aviso se pausó y ya no aparece en el catálogo.',
+    vendido: 'Éxito. El aviso se marcó como vendido y salió del catálogo.',
+    pausado: 'Éxito. El aviso se pausó y ya no aparece en el catálogo.',
     publicado: 'Éxito. El aviso se publicó de nuevo en el catálogo.'
   };
   showToast(mensajes[nuevo], 'success');
@@ -1344,6 +1350,9 @@ function validarConfirmacionEliminar() {
 }
 
 function confirmarEliminar() {
+  
+  console.log("Se ejecuto confirmarEliminar");
+  
   if ($('confirmarEliminarInput').value.trim() !== 'ELIMINAR') return;
   const n = ofertasDeFila(filaAccion);
 
@@ -1358,7 +1367,7 @@ function confirmarEliminar() {
 
   let msg = 'Aviso eliminado.';
   if (n === 1) msg = 'Aviso eliminado. Se rechazó 1 oferta activa y se notificó al comprador.';
-  if (n > 1)   msg = `Aviso eliminado. Se rechazaron ${n} ofertas activas y se notificó a los compradores.`;
+  if (n > 1) msg = `Aviso eliminado. Se rechazaron ${n} ofertas activas y se notificó a los compradores.`;
   showToast(msg, 'success');
 }
 
@@ -1367,11 +1376,11 @@ function actualizarContadoresMisPub() {
   const filas = filasDeMisPublicaciones();
   const cuenta = estado => filas.filter(f => f.dataset.estado === estado).length;
   const etiquetas = {
-    todos:     ['Todos', filas.length],
+    todos: ['Todos', filas.length],
     publicado: ['Publicados', cuenta('publicado')],
-    pausado:   ['Pausados', cuenta('pausado')],
-    borrador:  ['Borradores', cuenta('borrador')],
-    vendido:   ['Vendidos', cuenta('vendido')]
+    pausado: ['Pausados', cuenta('pausado')],
+    borrador: ['Borradores', cuenta('borrador')],
+    vendido: ['Vendidos', cuenta('vendido')]
   };
   document.querySelectorAll('#misPubFiltros .chip').forEach(chip => {
     const [texto, n] = etiquetas[chip.dataset.filtro];
