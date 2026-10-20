@@ -5,21 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Acuerdos - Tablón ULima</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css_historia1.css"> 
     <link rel="stylesheet" href="estilosH4.css"> 
 </head>
 <body>
-    <header class="top-bar">
-        <div class="top-bar-left">
-            <div class="logo-container">
-                <span class="logo-icon"></span>
-                <span class="logo-text">Tablón ULima</span>
-            </div>
-        </div>
-        <div class="top-bar-right">
-            <span class="badge-role">USUARIO</span>
-            <div class="user-profile">
-                <span class="avatar-circle">DV</span>
-                <span class="user-name">Diego Vargas ▾</span>
+    <header class="topbar">
+        <div class="topbar-main">
+            <a class="brand">
+                <img class="brand-logo" src="img/logo_ulima.png" alt="" onerror="this.style.display='none'">
+                <span>Tablón ULima</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#">Catálogo</a>
+                <a href="#">Cómo funciona</a>
+                <a href="#">Normas del tablón</a>
+                <a href="#">Ayuda</a>
+            </nav>
+            <div class="nav-right">
+                <span class="role-badge role-visitante" style="background:#DD6B20; color:white; padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:bold;">USUARIO</span>
+                <div>
+                    <a class="user-chip" style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;">
+                        <span class="avatar-sm" style="background:#E2E8F0; padding:6px 8px; border-radius:50%;">DV</span>
+                        <span>Diego Vargas ▾</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -34,7 +43,7 @@
         </ul>
     </nav>
 
-    <main class="content-container">
+    <main class="content-container" style="margin-top: 24px;">
         <h1 class="page-title">Mis Acuerdos de Entrega</h1>
         
         <div class="filter-bar">
@@ -65,7 +74,6 @@
                         <p id="modalInfo">Monto: S/ 0.00</p>
                     </div>
                 </div>
-                
                 <div id="modalContenidoDinamico"></div>
             </div>
             <div class="modal-footer" id="modalBotones">
