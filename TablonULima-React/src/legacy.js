@@ -554,8 +554,12 @@ function guardarFormularioComoAviso(estado) {
     titulo: $('nuevoTitulo').value.trim(), descripcion: $('nuevoDescripcion').value.trim(),
     categoria: $('nuevoCategoria').value, curso: $('nuevoCurso').value,
     condicion: document.querySelector('#condicionesAviso .chip-active')?.textContent.trim() || '',
-    precio: $('nuevoPrecio').value.trim(), minimo: $('nuevoMinimo').value.trim(),
-    portada: (state.fotosAviso || []).find(f => f.src)?.src || null,
+    precio: $('nuevoPrecio').value.trim(),
+    minimo: $('aceptaOfertasMenores').checked
+      ? $('nuevoMinimo').value.trim()
+      : $('nuevoPrecio').value.trim(),
+
+    aceptaOfertasMenores: $('aceptaOfertasMenores').checked, portada: (state.fotosAviso || []).find(f => f.src)?.src || null,
     fecha: fechaHoy()
   };
   const idx = lista.findIndex(a => a.id === id);
@@ -734,7 +738,16 @@ function actualizarVistaPreviaAviso() {
   $('previewTituloAviso').textContent = titulo || 'Título del aviso';
   $('previewPrecioAviso').textContent = Number.isFinite(precio) && precio > 0 ? `S/ ${precio.toFixed(2)}` : 'S/ 0.00';
   const elegida = document.querySelector('#condicionesAviso .chip-active')?.textContent.trim() || '';
-  document.querySelector('#nuevoAvisoView .preview-meta').textContent = [elegida, $('nuevoCurso').value].filter(Boolean).join(' · ');
+
+  const condicionPreview = $('previewCondicionAviso');
+  const cursoPreview = $('previewCursoAviso');
+
+  condicionPreview.textContent = elegida;
+  condicionPreview.hidden = !elegida;
+
+  cursoPreview.textContent = $('nuevoCurso').value;
+  cursoPreview.hidden = !$('nuevoCurso').value;
+
   $('contadorTituloAviso').textContent = `Incluye autor y edición: así lo buscan tus compañeros. ${titulo.length}/80 caracteres.`;
   const cantidad = (state.fotosAviso || []).filter(f => !!f.src).length;
   $('contadorFotosNuevoAviso').textContent = cantidad ? `${cantidad} de 6 fotografías. Arrastra las miniaturas para reordenarlas.` : 'Agrega hasta 6 fotografías para mostrar el producto.';
@@ -798,8 +811,38 @@ function guardarBorradorNuevoAviso() {
   guardarFormularioComoAviso('borrador');
 }
 
+
+
+function sincronizarEstadoOfertasMenores() {
+  const acepta = $('aceptaOfertasMenores').checked;
+
+  $('campoMinimoAviso').hidden = !acepta;
+  $('nuevoMinimo').disabled = !acepta;
+
+  if (!acepta) {
+    camposAvisoTocados.delete('nuevoMinimo');
+
+    mostrarErrorNuevoAviso(
+      'nuevoMinimo',
+      'errorNuevoMinimo',
+      ''
+    );
+  }
+
+  actualizarValidacionNuevoAviso();
+}
+
+
+
 // Actualiza los errores al corregir un campo, sin interferir con otros formularios.
 onLegacyReady(() => {
+  $('aceptaOfertasMenores').addEventListener(
+    'change',
+    sincronizarEstadoOfertasMenores
+  );
+
+  sincronizarEstadoOfertasMenores();
+
   ['nuevoTitulo', 'nuevoDescripcion', 'nuevoCategoria', 'nuevoCurso', 'nuevoPrecio', 'nuevoMinimo'].forEach(id => {
     const campo = $(id);
     campo.addEventListener('input', actualizarValidacionNuevoAviso);
@@ -1350,9 +1393,6 @@ function validarConfirmacionEliminar() {
 }
 
 function confirmarEliminar() {
-  
-  console.log("Se ejecuto confirmarEliminar");
-  
   if ($('confirmarEliminarInput').value.trim() !== 'ELIMINAR') return;
   const n = ofertasDeFila(filaAccion);
 

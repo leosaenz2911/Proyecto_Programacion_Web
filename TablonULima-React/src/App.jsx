@@ -1230,13 +1230,15 @@ export default function App() {
                       </span>
                     </div>
                     <label className={"switch-ofertas"}>
-                      <input type={"checkbox"} defaultChecked={true} />
+                      <input id="aceptaOfertasMenores"
+                        type="checkbox"
+                        defaultChecked={true} />
                       <span className={"slider-ofertas"}></span>
                       <span>
                         {"Acepto ofertas por un monto menor"}
                       </span>
                     </label>
-                    <div className={"field precio-field"}>
+                    <div className={"field precio-field"} id="campoMinimoAviso">
                       <label>
                         {"Monto mínimo que aceptarás"}
                       </label>
@@ -1291,25 +1293,42 @@ export default function App() {
                   </p>
                   <ul id={"listaErroresAviso"} />
                 </div>
-                <div className={"vista-previa-aviso"}>
-                  <p className={"eyebrow"}>
-                    {"\n                Vista previa de la tarjeta\n              "}
-                  </p>
-                  <div className={"preview-imagen"} id={"previewImagenAviso"}>
-                    <span id={"previewSinFotoAviso"}>
-                      {"sin fotografía"}
+
+                <div className="vista-previa-aviso">
+                  <p className="eyebrow">Vista previa de la tarjeta</p>
+                  <div className="preview-imagen" id="previewImagenAviso">
+                    <span id="previewSinFotoAviso">sin fotografía</span>
+                  </div>
+                <div className="preview-detalles-aviso">
+                  <h3 id="previewTituloAviso">
+                    Cálculo de una variable — Stewart, 8.ª ed.
+                  </h3>
+
+                  <strong
+                    className="preview-precio"
+                    id="previewPrecioAviso"
+                  >
+                    S/ 95.00
+                  </strong>
+
+                  <div className="preview-meta">
+                    <span
+                      id="previewCondicionAviso"
+                      className="preview-chip preview-chip-condicion"
+                    >
+                      Muy buen estado
+                    </span>
+
+                    <span
+                      id="previewCursoAviso"
+                      className="preview-chip preview-chip-curso"
+                    >
+                      Cálculo I
                     </span>
                   </div>
-                  <h3 id={"previewTituloAviso"}>
-                    {"Cálculo de una variable — Stewart, 8.ª ed."}
-                  </h3>
-                  <strong className={"preview-precio"} id={"previewPrecioAviso"}>
-                    {"S/ 95.00"}
-                  </strong>
-                  <p className={"preview-meta"}>
-                    {"\n                Muy buen estado . Cálculo I\n              "}
-                  </p>
                 </div>
+                </div>
+
                 <div className={"antes-publicar"} id={"consejoNuevoAviso"}>
                   <h3>
                     {"Antes de publicar"}
@@ -1490,7 +1509,7 @@ export default function App() {
             <button type={"button"} className={"btn btn-ghost"} onClick={(event) => { legacy.cerrarModales(); }}>
               {"Cancelar"}
             </button>
-            <button type={"button"} className={"btn btn-primary"} id={"btnConfirmarEstado"} onClick={(event) => { legacy.confirmarCambioEstado(); }} disabled={true}>
+            <button type={"button"} className={"btn btn-primary"} id={"btnConfirmarEstado"} onClick={(event) => { legacy.confirmarCambioEstado(); }}>
               {"Confirmar cambio"}
             </button>
           </div>
@@ -1516,7 +1535,7 @@ export default function App() {
             <button type={"button"} className={"btn btn-ghost"} onClick={(event) => { legacy.cerrarModales(); }}>
               {"Cancelar"}
             </button>
-            <button type={"button"} className={"btn btn-danger"} id={"btnConfirmarEliminar"} onClick={(event) => { legacy.confirmarEliminar(); }} >
+            <button type={"button"} className={"btn btn-danger"} id={"btnConfirmarEliminar"} onClick={(event) => { legacy.confirmarEliminar(); }}>
               {"Eliminar aviso"}
             </button>
           </div>
