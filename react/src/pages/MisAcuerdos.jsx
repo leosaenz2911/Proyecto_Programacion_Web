@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './estilosH4.css';
 
 export default function MisAcuerdos() {
   const [filtroActivo, setFiltroActivo] = useState('Todos');
