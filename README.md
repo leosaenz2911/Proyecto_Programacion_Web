@@ -1,2 +1,2 @@
-# HU-4: Apartade de Ofertas
+# HU-4: Apartado de Ofertas
 Alumno: José Ariel Ramos García
