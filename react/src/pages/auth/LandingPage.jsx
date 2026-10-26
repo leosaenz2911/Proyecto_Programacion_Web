@@ -52,6 +52,10 @@ export default function LandingPage() {
             <div key={title} className="item"><b>{title}</b><em>{price}</em>{meta}</div>
           ))}
         </div>
+        <div className="integration-quicklinks">
+          <Link className="btn btn-primary" to="/catalogo">Explorar catálogo</Link>
+          <Link className="btn btn-secondary" to="/publicar">Publicar un aviso</Link>
+        </div>
         <div className="steps3">
           {STEPS.map(([title, text], i) => (
             <div key={title} className="step3"><i>{i + 1}</i><div><b>{title}</b><span>{text}</span></div></div>

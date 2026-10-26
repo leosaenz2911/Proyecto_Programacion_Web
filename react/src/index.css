@@ -29,7 +29,7 @@ h2{font-size:20px;line-height:28px;font-weight:700}
 .nav-search input{height:38px;background:var(--bg)}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
 #navAuthButtons,#navUserMenu{display:flex;align-items:center;gap:12px}
-.user-chip{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer}
+.user-chip{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer;color:var(--ink)}
 .avatar-sm{width:32px;height:32px;border-radius:50%;background:var(--terracota-soft);color:var(--terracota-dark);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 .role-badge{font-size:11px;font-weight:800;letter-spacing:.12em;padding:4px 12px;border-radius:999px}
 .role-visitante{background:#E5EDF6;color:var(--info)}
@@ -73,7 +73,15 @@ input.is-invalid,select.is-invalid{border-color:var(--err)}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 
 /* 1.1 Landing */
-.hero{background:var(--terracota-soft);padding:64px 0 48px}
+.hero{
+  background:
+    linear-gradient(90deg, rgba(251,235,227,.92) 0%, rgba(251,235,227,.70) 35%, rgba(251,235,227,0) 65%),
+    url('./assets/f1Ulima.jpg') center / cover no-repeat;
+  padding:64px 0 48px;
+}
+.hero h1, .hero .sub, .stats{
+  text-shadow: 0 1px 10px rgba(253,250,247,.95);
+}
 .hero h1{font-size:46px;line-height:52px;max-width:640px;margin-bottom:16px}
 .hero p{max-width:520px;margin-bottom:24px}
 .hero-search{display:flex;gap:8px;max-width:500px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px;margin-bottom:24px}
@@ -161,3 +169,7 @@ footer div{display:flex;gap:28px}footer a{font-weight:700}
 
 /* React: #root envuelve la app, así el pie de página queda abajo */
 #root{min-height:100vh;display:flex;flex-direction:column}
+
+/* Botón «Publicar aviso» de la barra superior (rol Usuario) */
+.btn-publicar{height:38px;padding:0 20px;white-space:nowrap}
+.btn-publicar:hover{color:#fff}

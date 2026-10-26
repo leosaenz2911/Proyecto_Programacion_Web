@@ -14,11 +14,11 @@ export const PUNTOS_ENCUENTRO = [
 export const TABS = {
   USUARIO: [
     { label: 'Catálogo', to: '/catalogo' },
-    { label: 'Mis publicaciones' },
-    { label: 'Favoritos' },
-    { label: 'Ofertas' },
-    { label: 'Acuerdos' },
-    { label: 'Calificaciones' },
+    { label: 'Mis publicaciones', to: '/mis-publicaciones' },
+    { label: 'Favoritos', to: '/favoritos' },
+    { label: 'Ofertas', to: '/ofertas' },
+    { label: 'Acuerdos', to: '/acuerdos' },
+    { label: 'Calificaciones', to: '/calificaciones' },
     { label: 'Mi cuenta', to: '/mi-cuenta' }
   ],
   ADMINISTRADOR: [

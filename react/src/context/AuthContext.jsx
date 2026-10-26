@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   clearSession, createUser, findByEmail, findById, getSessionId, setSessionId, updateUser
 } from '../services/userService';
@@ -15,6 +15,16 @@ function restoreSession() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(restoreSession);
+
+  useEffect(() => {
+    const syncSession = () => setUser(restoreSession());
+    window.addEventListener('tablon:auth-changed', syncSession);
+    window.addEventListener('storage', syncSession);
+    return () => {
+      window.removeEventListener('tablon:auth-changed', syncSession);
+      window.removeEventListener('storage', syncSession);
+    };
+  }, []);
 
   const login = (email, password) => {
     const found = findByEmail(email);

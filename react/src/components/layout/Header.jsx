@@ -4,13 +4,16 @@ import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { HOME_BY_ROLE, TABS } from '../../utils/constants';
 import Avatar from '../auth/Avatar';
+import { useCatalogo } from '../../pages/catalogo/CatalogoContext';
 
 export default function Header() {
   const { user, logout } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { busqueda, setBusqueda, buscar } = useCatalogo();
   const role = user ? user.rol : 'VISITANTE';
+  const enCatalogo = pathname === '/catalogo' || pathname.startsWith('/catalogo/');
 
   const handleLogout = () => {
     navigate('/');
@@ -31,13 +34,14 @@ export default function Header() {
           </nav>
         )}
 
-        {user?.rol === 'USUARIO' && (
-          <form className="nav-search" onSubmit={e => { e.preventDefault(); navigate('/catalogo'); }}>
-            <input type="search" placeholder="Buscar libros, calculadoras, apuntes…" />
+        {(user?.rol === 'USUARIO' || (!user && enCatalogo)) && (
+          <form className="nav-search" role="search" onSubmit={e => { e.preventDefault(); buscar(); navigate('/catalogo'); }}>
+            <input type="search" aria-label="Buscar avisos" value={busqueda} onChange={e => setBusqueda(e.target.value)} placeholder="Buscar libros, calculadoras, apuntes…" />
           </form>
         )}
 
         <div className="nav-right">
+          {user?.rol === 'USUARIO' && <Link className="btn btn-primary btn-publicar" to="/publicar">Publicar aviso</Link>}
           <span className={`role-badge role-${role.toLowerCase()}`}>{role}</span>
           {user ? (
             <div id="navUserMenu">
@@ -60,7 +64,7 @@ export default function Header() {
         <nav className={`tabs${user.rol === 'ADMINISTRADOR' ? ' admin' : ''}`}>
           {TABS[user.rol].map(tab =>
             tab.to ? (
-              <Link key={tab.label} to={tab.to} className={pathname === tab.to ? 'active' : ''}>{tab.label}</Link>
+              <Link key={tab.label} to={tab.to} className={pathname === tab.to || pathname.startsWith(tab.to + '/') ? 'active' : ''}>{tab.label}</Link>
             ) : (
               <a key={tab.label} onClick={() => showToast('Esta vista pertenece a otra historia del grupo.', 'info')}>{tab.label}</a>
             )
